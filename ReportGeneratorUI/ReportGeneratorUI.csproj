@@ -100,12 +100,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestReportDocument\TestReportDocument.csproj">
-      <Project>{93cfebca-7684-4254-aae2-c766f7d9158b}</Project>
-      <Name>TestReportDocument</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
