@@ -16,6 +16,13 @@ namespace TestReportItemReader.XML
     {
         private readonly XmlDocument xmlDocument = new XmlDocument();
 
+        public Func<ITestReportComponent, XmlNode, ITestReportComponent> parseText = (t, x) =>
+        {
+            var tr = (TestReportComponentText)t;
+            tr.Text = x.InnerText;
+            return tr;
+        };
+
         private TestreportItemReaderState status;
 
         public TestreportItemReaderState Status
@@ -146,7 +153,7 @@ namespace TestReportItemReader.XML
                 {
                     ITestReportComponent reportComponent = TestReportComponentFactory.GetComponent(testReportItemNode);
 
-                    testReportItem.ListOfComponents.Add(PopulateTestreportComponents.ParseXmlNode(testReportItemNode, ref reportComponent));
+                    testReportItem.ListOfComponents.Add(PopulateTestreportComponent.ParseXmlNode(testReportItemNode, ref reportComponent));
                 }
 
                 return testReportItem;

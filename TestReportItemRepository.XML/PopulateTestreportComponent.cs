@@ -8,7 +8,7 @@ using TestReport.Components;
 
 namespace TestReportItemRepository.XML
 {
-    public static class PopulateTestreportComponents
+    public static class PopulateTestreportComponent
     {
         internal static ITestReportComponent ParseXmlNode(XmlNode node, ref ITestReportComponent component)
         {
