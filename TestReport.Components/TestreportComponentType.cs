@@ -6,7 +6,7 @@
         Header,
         Subtitle,
         Paragrapgh,
-        BulletList,
+        List,
         Table,
         Reference
     }

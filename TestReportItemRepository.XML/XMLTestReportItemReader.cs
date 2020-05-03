@@ -7,13 +7,14 @@ using System.Xml;
 using TestReport.Components;
 using TestreportComponent.Factory;
 using TestReportItemReader.Interface;
+using TestReportItemRepository.XML;
 
 namespace TestReportItemReader.XML
 {
 
     public class XMLTestReportItemReader : ITestreportItemReader
     {
-        private XmlDocument xmlDocument = new XmlDocument();
+        private readonly XmlDocument xmlDocument = new XmlDocument();
 
         private TestreportItemReaderState status;
 
@@ -41,12 +42,6 @@ namespace TestReportItemReader.XML
                 }
             }
         }
-
-        /// <summary>
-        /// Gets a TestReportItem from the repository by its name
-        /// </summary>
-        /// <param name="testName"></param>
-        /// <returns></returns>
         
         public void LoadFromDirectory(string directoryPath)
         {
@@ -114,8 +109,6 @@ namespace TestReportItemReader.XML
 
         public List<TestreportItem> GetAllTestReportItemsExp()
         {
-            XmlDocument xmlDocument = new XmlDocument();
-
             List<TestreportItem> testReportItemList = new List<TestreportItem>();
 
             try
@@ -123,7 +116,9 @@ namespace TestReportItemReader.XML
                 xmlDocument.Load(Directory);
                 foreach(XmlNode node in xmlDocument.DocumentElement.ChildNodes)
                 {
-                    testReportItemList.Add(WalkXmlTree(node));
+                    var testReportItem = GetTestReportItem(node);
+
+                    testReportItemList.Add(testReportItem);
                 }
 
                 return testReportItemList;
@@ -136,7 +131,7 @@ namespace TestReportItemReader.XML
             }
         }
 
-        public TestreportItem WalkXmlTree(XmlNode node)
+        public TestreportItem GetTestReportItem(XmlNode node)
         {
             try
             {
@@ -151,9 +146,7 @@ namespace TestReportItemReader.XML
                 {
                     ITestReportComponent reportComponent = TestReportComponentFactory.GetComponent(testReportItemNode);
 
-                    reportComponent.ParseXmlNode(testReportItemNode);
-
-                    testReportItem.ListOfComponents.Add(reportComponent);
+                    testReportItem.ListOfComponents.Add(PopulateTestreportComponents.ParseXmlNode(testReportItemNode, ref reportComponent));
                 }
 
                 return testReportItem;
@@ -164,66 +157,6 @@ namespace TestReportItemReader.XML
 
                 throw ex;
             }
-        }
-
-        private object ParseTestReportItem(XmlNode node)
-        {
-
-            //TODO Extract this function to seperate file. Rename it a factory
-
-            //TODO Convert to a dynamic factory
-
-            //TODO In Xml File, use type attribute to dynamically load instance
-
-            //TODO Think about how the responsibility of parsing XML nodes to objects.
-
-            //TODO Add application setting with list of Types. This will allow extensibility.
-
-            //if (node.NodeType == XmlNodeType.Element)
-            //{
-            //    switch (node.Name)
-            //    {
-            //        case "Title":
-            //            var title = new TestReportComponentText() { TypeOfComponent = TestreportComponentType.Header };
-            //            title.Text = node.InnerText;
-            //            return title;
-            //        case "SubTitle":
-            //            var subtitle = new TestReportComponentText() { TypeOfComponent = TestreportComponentType.Subtitle };
-            //            subtitle.Text = node.InnerText;
-            //            return subtitle;
-            //        case "Paragrapgh":
-            //            var paragraph = new TestReportComponentText() { TypeOfComponent = TestreportComponentType.Paragrapgh };
-            //            paragraph.Text = node.InnerText;
-            //            return paragraph;
-            //        case "BulletList":
-            //            var list = new TestReportComponentList();
-            //            if (node.HasChildNodes)
-            //            {
-            //                var listOfText = node.ChildNodes.Cast<XmlNode>().Select(n => n.InnerText);
-            //                list.Text = listOfText.ToList();
-            //            }
-            //            return list;
-            //        case "Table":
-            //            var table = new TestReportComponentTable();
-            //            if (node.HasChildNodes)
-            //            {
-            //                var listOfText = node.ChildNodes.Cast<XmlNode>().Select(n => n.InnerText);
-            //                table.Titles = listOfText.ToList();
-            //            }
-            //            return table;
-            //        case "Reference":
-            //            var reference = new TestReportComponentText() { TypeOfComponent = TestreportComponentType.Reference };
-            //            reference.Text = node.InnerText;
-            //            return reference;
-            //        case "Body":
-            //            return WalkXmlTree(node);
-            //        default:
-            //            return null;
-            //    }
-            //}
-
-            return null;
-
         }
 
         /// <summary>

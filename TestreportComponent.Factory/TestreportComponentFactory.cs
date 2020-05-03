@@ -13,7 +13,8 @@ namespace TestreportComponent.Factory
     {
         public static ITestReportComponent GetComponent(XmlNode node)
         {
-            string component = ConfigurationManager.AppSettings[node.Name];
+            string nameOfComponents = String.IsNullOrWhiteSpace(node.Name) ? "Null" : node.Name;
+            string component = $"TestReport.Components.TestReportComponent{ nameOfComponents }, TestReportComponent{ nameOfComponents }, Version = 1.0.0.0, Culture = neutral";
             Type componentyType = Type.GetType(component);
             object type = Activator.CreateInstance(componentyType);
             ITestReportComponent testreportComponent = type as ITestReportComponent;

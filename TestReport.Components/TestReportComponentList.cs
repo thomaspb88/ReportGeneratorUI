@@ -8,14 +8,13 @@ namespace TestReport.Components
     public class TestReportComponentList : ITestReportComponent
     {
 
-        public TestreportComponentType TypeOfComponent { get; private set; } = TestreportComponentType.BulletList;
+        public TestreportComponentType TypeOfComponent { get; set; } = TestreportComponentType.List;
 
         public List<string> Text { get; set; } = new List<string>();
-        TestreportComponentType ITestReportComponent.TypeOfComponent { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         public void ParseXmlNode(XmlNode node)
         {
-            string TypeOfComponent = node.Name;
+            string TypeOfComponent = node.Attributes["type"].Value;
 
             this.TypeOfComponent = Enum.TryParse(TypeOfComponent, out TestreportComponentType reportItemType) ? reportItemType : TestreportComponentType.Null;
 

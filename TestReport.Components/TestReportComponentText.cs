@@ -15,9 +15,17 @@ namespace TestReport.Components
 
         public void ParseXmlNode(XmlNode node)
         {
-            string TypeOfComponent = node.Name;
+            string TypeOfComponent = node.Attributes["type"].Value;
 
             this.TypeOfComponent = Enum.TryParse(TypeOfComponent, out TestreportComponentType reportTypComponent) ? reportTypComponent : TestreportComponentType.Null;
+
+            this.Text = node.InnerText;
         }
+
+        public void ParseInformation(XmlNode node, Action<XmlNode> action)
+        {
+            action(node);
+        }
+
     }
 }
