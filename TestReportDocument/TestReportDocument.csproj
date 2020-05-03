@@ -53,7 +53,7 @@
     <Compile Include="TextSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ITestReportTestStandardRepository\TestReportItemReader.Interface.csproj">
+    <ProjectReference Include="..\TestreportReader.Interface\TestReportItemReader.Interface.csproj">
       <Project>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</Project>
       <Name>TestReportItemReader.Interface</Name>
     </ProjectReference>

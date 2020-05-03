@@ -2,23 +2,23 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-using TestReportItemRepository.Interface;
+using TestReportItemReader.Interface;
 
 namespace ReportGenerator
 {
-    [ValueConversion(typeof(TestReportItemType),typeof(string))]
+    [ValueConversion(typeof(ReportItemType),typeof(string))]
     public class TestReportItemTypeToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
 
-            var itemType = (TestReportItemType)value;
+            var itemType = (ReportItemType)value;
 
             switch (itemType)
             {
-                case TestReportItemType.ProductStandard:
+                case ReportItemType.ProductStandard:
                     return "/Content/Images/Icon_ProductStandard.png";
-                case TestReportItemType.TestStandard:
+                case ReportItemType.TestStandard:
                     return "/Content/Images/Icon_TestStandard.png";
                 default:
                     return "/Content/Images/Icon_QuestionMark.png";

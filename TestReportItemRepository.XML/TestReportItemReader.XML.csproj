@@ -45,17 +45,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ITestReportTestStandardRepository\TestReportItemReader.Interface.csproj">
-      <Project>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</Project>
-      <Name>TestReportItemReader.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestReport.Components\TestReport.Components.csproj">
       <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
       <Name>TestReport.Components</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestreportComponentFactory\TestreportComponent.Factory.csproj">
+    <ProjectReference Include="..\TestreportComponent.Factory\TestreportComponent.Factory.csproj">
       <Project>{51B44302-0676-4DF8-BB5F-D1A2DFB27648}</Project>
       <Name>TestreportComponent.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestreportReader.Interface\TestReportItemReader.Interface.csproj">
+      <Project>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</Project>
+      <Name>TestReportItemReader.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
