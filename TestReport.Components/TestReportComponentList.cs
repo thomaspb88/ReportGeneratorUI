@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml;
+﻿using System.Collections.Generic;
 using TestreportComponent.Settings;
-using TestReportDocument;
+
 
 namespace TestReport.Components
 {

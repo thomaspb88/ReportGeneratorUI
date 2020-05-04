@@ -50,7 +50,7 @@
     <Compile Include="TestreportComponentType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TestreportDocument.Settings\TestreportComponent.Settings.csproj">
+    <ProjectReference Include="..\TestreportDocument.Settings\TestreportComponent.Settings.csproj">
       <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
       <Name>TestreportComponent.Settings</Name>
     </ProjectReference>

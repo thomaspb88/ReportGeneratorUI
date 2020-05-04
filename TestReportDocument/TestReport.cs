@@ -12,18 +12,6 @@ namespace TestReportDocument
 {
     public class TestReport
     {
-        /* The stypical structure of a test report template:
-        Front Page
-        Contents
-        Intro
-        Specimens
-        Tests*
-        References*
-        
-        * Sections produced by software
-        
-        */
-
         public IEnumerable<TestreportItem> ListOfTestsReportItems { get; set; }
         private Application wordApp;
         private Document _wordDoc;
@@ -46,6 +34,18 @@ namespace TestReportDocument
             }
         }
 
+        private Dictionary<TestreportComponentType, Action<ITestReportComponent>> writeOperations
+        = new Dictionary<TestreportComponentType, Action<ITestReportComponent>>()
+        { 
+            { TestreportComponentType.Header, WriteText },
+            { TestreportComponentType.Text, WriteText },
+            { TestreportComponentType.Reference, WriteText },
+            { TestreportComponentType.Subtitle, WriteText },
+            { TestreportComponentType.Table, WriteTable },
+            { TestreportComponentType.List, WriteList }
+        };
+
+
         public void LoadReportItems(IEnumerable<TestreportItem> testreportItems)
         {
             this.ListOfTestsReportItems = testreportItems;
@@ -53,19 +53,12 @@ namespace TestReportDocument
 
         public void WriteReport()
         {
-
+            foreach (var item in this.ListOfTestsReportItems)
+            {
+                WriteReportItemToDocument(item);            
+            }
+            CreateReferencesPage()
         }
-
-        private Dictionary<TestreportComponentType, Action<ITestReportComponent>> writeOperations 
-            = new Dictionary<TestreportComponentType, Action<ITestReportComponent >>()
-        {
-                { TestreportComponentType.Header, WriteText },
-                { TestreportComponentType.Text, WriteText },
-                { TestreportComponentType.Reference, WriteText },
-                { TestreportComponentType.Subtitle, WriteText },
-                { TestreportComponentType.Table, WriteTable },
-                { TestreportComponentType.List, WriteList }
-        };
 
         internal void WriteReportItemToDocument(TestreportItem testreportItem)
         {
@@ -77,7 +70,7 @@ namespace TestReportDocument
             };
         }
 
-        private static Action<ITestReportComponent> WriteList = (t) =>
+        internal static Action<ITestReportComponent> WriteList = (t) =>
         {
             var testreportComponentList = (TestReportComponentList)t;
             var listSettings = testreportComponentList.Settings;
@@ -140,150 +133,6 @@ namespace TestReportDocument
             table.Rows[1].Range.Font.Italic = tableSettings.Italic;
         };
 
-        /// <summary>
-        /// Appends test report items to the test report template
-        /// </summary>
-        /// <param name="testReportItem"></param>
-        public void AppendTestReportItem(TestreportItem testReportItem)
-        {
-            if (IsDocumentOpen)
-            {
-                AppendHeading(testReportItem.Title);
-                AppendSubTitle(testReportItem.SubTitle);
-                if (testReportItem.HasTable)
-                {
-                    AppendTable(testReportItem.TableTitles);
-                }
-
-                if (testReportItem.HasAdditionalInformation)
-                {
-                    AppendBulletPointList(testReportItem.FurtherInfo);
-                }
-                if (testReportItem.TestReportItems != null) 
-                {
-                    testReportItem.TestReportItems.ForEach(testItem => AppendTestReportItem(testItem));
-                    
-                }
-            }
-        }
-
-        public void AppendAllTests()
-        {
-            ListOfTestsReportItems.ToList().ForEach(testItem => AppendTestReportItem(testItem));
-        }
-
-        private void AppendParagraph(string text, TextSettings settings)
-        {
-            bool isInputValid = !string.IsNullOrWhiteSpace(text);
-
-            if (isInputValid)
-            {
-                Paragraph para;
-                object rng = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
-                para = _wordDoc.Content.Paragraphs.Add(ref rng);
-                para.Range.Text = text;
-                para.Range.Font.Bold = settings.Bold;
-                para.Range.Font.Italic = settings.Italic;
-                para.Format.SpaceAfter = settings.SpaceAfter;
-                para.set_Style(_wordDoc.Styles[settings.StyleName]);
-                para.Range.InsertParagraphAfter();
-            }
-        }
-
-        /// <summary>
-        /// Appends a Heading to a test report word document template
-        /// </summary>
-        /// <param name="text"></param>
-        private void AppendHeading(string text)
-        {
-            bool isInputValid = !string.IsNullOrWhiteSpace(text);
-
-            if (isInputValid)
-            {
-                AppendParagraph(text, headerSettings);
-            }
-        }
-
-        /// <summary>
-        /// Appends a SubTitle to a test report word document template
-        /// </summary>
-        /// <param name="text"></param>
-        private void AppendSubTitle(string text)
-        {
-            bool isInputValid = !string.IsNullOrWhiteSpace(text);
-            if (isInputValid) 
-            {
-                AppendParagraph(text, subtitleSettings);
-            }
-
-        }
-
-        /// <summary>
-        /// Appends a Paragraph to a test report word document template
-        /// </summary>
-        /// <param name="text"></param>
-        private void AppendText(string text)
-        {
-            bool isInputValid = !string.IsNullOrWhiteSpace(text);
-            if (isInputValid)
-            {
-                AppendParagraph(text, textSettings);
-            }
-        }
-
-        /// <summary>
-        /// Appends a table to a test report word document template
-        /// </summary>
-        /// <param name="numberOfColumns">An positive and non-zero integer</param>
-        /// <param name="tableTitles">An array of strings</param>
-        private void AppendTable(List<string> coloumnTitles)
-        {
-            Range endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
-            Table table = _wordDoc.Tables.Add(endOfDocRange, 2, coloumnTitles.Count, ref missing, ref missing);
-            table.Range.ParagraphFormat.SpaceAfter = tableSettings.SpaceAfter;
-
-            //Add titles to top row of table
-            for (int c = 1; c <= coloumnTitles.Count; c++)
-            {
-                table.Cell(1, c).Range.Text = coloumnTitles[c - 1];
-                table.Cell(1, c).Range.ParagraphFormat.SpaceAfter = tableSettings.SpaceAfter;
-                table.Cell(1, c).Range.ParagraphFormat.SpaceBefore = tableSettings.SpaceBefore;
-                table.Cell(1, c).VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                table.Cell(1, c).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                table.Borders.InsideLineStyle = WdLineStyle.wdLineStyleSingle;
-                table.Borders.OutsideLineStyle = WdLineStyle.wdLineStyleSingle;
-            }
-            table.Rows[1].Range.Font.Bold = tableSettings.Bold;
-            table.Rows[1].Range.Font.Italic = tableSettings.Italic;
-        }
-
-        /// <summary>
-        /// Appends a bullet point list to a word document template
-        /// </summary>
-        /// <param name="testInformation">An array of strings</param>
-        private void AppendBulletPointList(List<string> testInformation)
-        {
-            bool isInputValid = testInformation.Count > 0;
-
-            if (isInputValid)
-            {
-                object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
-                Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
-
-                para.Range.ListFormat.ApplyBulletDefault();
-                para.Format.SpaceAfter = listSettings.SpaceAfter; para.Range.Font.Italic = listSettings.Italic;
-                para.Range.Font.Bold = listSettings.Bold;
-                para.set_Style(_wordDoc.Styles[listSettings.StyleName]);
-
-                testInformation.ForEach(t => para.Range.InsertBefore(t));
-
-            }
-            
-        }
-
-        /// <summary>
-        /// Appends references to the last page of a word document template
-        /// </summary>
         public void CreateReferencesPage()
         {
             //Move to new Page

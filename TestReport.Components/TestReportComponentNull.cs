@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿
+using TestreportComponent.Settings;
 
 namespace TestReport.Components
 {
@@ -12,5 +8,6 @@ namespace TestReport.Components
         public TestreportComponentType TypeOfComponent { get; set; } = TestreportComponentType.Null;
 
         public string Text { get; set; } = "Error - Unable to read this component";
+        public ITestReportComponentSettings Settings { get; set; }
     }
 }
