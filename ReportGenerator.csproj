@@ -161,6 +161,10 @@
     <Resource Include="Content\Images\Icon_QuestionMark.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="TestReport.Components\TestReport.Components.csproj">
+      <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
+      <Name>TestReport.Components</Name>
+    </ProjectReference>
     <ProjectReference Include="TestReportDocument\TestReportDocument.csproj">
       <Project>{93CFEBCA-7684-4254-AAE2-C766F7D9158B}</Project>
       <Name>TestReportDocument</Name>

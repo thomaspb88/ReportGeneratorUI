@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Xml;
+using TestReport.Components;
 using TestReportDocument;
 using TestReportItemReader.Factory;
 using TestReportItemReader.Interface;
@@ -23,7 +24,7 @@ namespace ReportGenerator
 
         #region Property - Test List for Combobox
 
-        public ObservableCollection<TestreportItem> TestList
+        public ObservableCollection<TestReportComponentBody> TestList
         {
             get 
             {
@@ -31,12 +32,12 @@ namespace ReportGenerator
                 if(repo.Status == TestreportItemReaderState.Loaded)
                 {
                     repo.LoadFromDirectory(FileDirectoryPath);
-                    return new ObservableCollection<TestreportItem>(repo.GetAllTestreportItems());
+                    return new ObservableCollection<TestReportComponentBody>(repo.GetAllTestreportItems());
                 }
 
-                return new ObservableCollection<TestreportItem>()
+                return new ObservableCollection<TestReportComponentBody>()
                 {
-                   new TestreportItem(){ Title = "Error - Something went wrong" }
+                   new TestReportComponentBody(){ Title = "Error - Something went wrong" }
                 };
             }
         }
@@ -44,9 +45,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Chosen Test List
-        private ObservableCollection<TestreportItem> _chosenTests;
+        private ObservableCollection<TestReportComponentBody> _chosenTests;
 
-        public ObservableCollection<TestreportItem> ChosenTests
+        public ObservableCollection<TestReportComponentBody> ChosenTests
         {
             get 
             {
@@ -60,9 +61,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Selected Test on Combobox
-        private TestreportItem _selectedTest;
+        private TestReportComponentBody _selectedTest;
 
-        public TestreportItem SelectedTest
+        public TestReportComponentBody SelectedTest
         {
             get { return _selectedTest; }
             set 
@@ -74,9 +75,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Selected Test on ListBox
-        private TestreportItem _selectedListItem;
+        private TestReportComponentBody _selectedListItem;
 
-        public TestreportItem SelectedListItem
+        public TestReportComponentBody SelectedListItem
         {
             get { return _selectedListItem; }
             set
@@ -178,7 +179,7 @@ namespace ReportGenerator
         #region Constructor - ReportGeneratorViewModel
         public ViewModelReportGenerator()
         {
-            _chosenTests = new ObservableCollection<TestreportItem>();
+            _chosenTests = new ObservableCollection<TestReportComponentBody>();
             AddTestsCommand = new RelayCommand(() => ExecuteAddTestsToListCommand(), () => CanExecuteAddTestsCommand());
             RemoveTestCommand = new RelayCommand(() => ExecuteRemoveTestsCommand(), () => CanExecuteRemoveTestsCommand());
             CreateReportCommand = new RelayCommand(() => ExecuteCreateReportCommand(), () => CanExecuteCreateReportCommand());

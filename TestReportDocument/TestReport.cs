@@ -1,18 +1,15 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TestReportItemReader.Interface;
-using System.Configuration;
-using System;
 using TestReport.Components;
-using TestreportComponent.Settings;
 
 namespace TestReportDocument
 {
     public class TestReport
     {
-        public IEnumerable<TestreportItem> ListOfTestsReportItems { get; set; }
+        private IEnumerable<TestReportComponentBody> ListOfTestsReportItems { get; set; }
+
         private Application wordApp;
         private Document _wordDoc;
         object missing = System.Reflection.Missing.Value;
@@ -46,7 +43,7 @@ namespace TestReportDocument
         };
 
 
-        public void LoadReportItems(IEnumerable<TestreportItem> testreportItems)
+        public void LoadReportItems(IEnumerable<TestReportComponentBody> testreportItems)
         {
             this.ListOfTestsReportItems = testreportItems;
         }
@@ -57,10 +54,10 @@ namespace TestReportDocument
             {
                 WriteReportItemToDocument(item);            
             }
-            CreateReferencesPage()
+            CreateReferencesPage();
         }
 
-        internal void WriteReportItemToDocument(TestreportItem testreportItem)
+        internal void WriteReportItemToDocument(TestReportComponentBody testreportItem)
         {
             foreach (var item in testreportItem.ListOfComponents)
             {

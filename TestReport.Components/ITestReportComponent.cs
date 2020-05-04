@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using TestreportComponent.Settings;
+﻿using TestreportComponent.Settings;
 
 namespace TestReport.Components
 {
