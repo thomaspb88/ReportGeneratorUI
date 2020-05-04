@@ -12,10 +12,5 @@ namespace TestReport.Components
         public TestreportComponentType TypeOfComponent { get; set; } = TestreportComponentType.Null;
 
         public string Text { get; set; } = "Error - Unable to read this component";
-
-        public void ParseXmlNode(XmlNode testReportItemNode)
-        {
-            
-        }
     }
 }

@@ -45,5 +45,11 @@
     <Compile Include="TestreportItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestReport.Components\TestReport.Components.csproj">
+      <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
+      <Name>TestReport.Components</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using TestReportItemReader.Interface;
 using System.Configuration;
+using System;
+using TestReport.Components;
+using TestreportComponent.Settings;
 
 namespace TestReportDocument
 {
@@ -21,24 +24,17 @@ namespace TestReportDocument
         
         */
 
-        TableSettings tableSettings = new TableSettings();
-        TextSettings headerSettings = new TextSettings() { Bold = 1, SpaceAfter = 10, StyleName = "Heading 1" };
-        TextSettings subtitleSettings = new TextSettings() { Bold = 1, StyleName = "Normal", SpaceAfter = 10 };
-        TextSettings textSettings = new TextSettings() { SpaceAfter = 10, StyleName = "Normal" };
-        TextSettings bulletpointSettings = new TextSettings();
-
         public IEnumerable<TestreportItem> ListOfTestsReportItems { get; set; }
         private Application wordApp;
         private Document _wordDoc;
-
         object missing = System.Reflection.Missing.Value;
         object endOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
 
-        private bool _isDocumentOpen { get; set; } = false;
+        private bool IsDocumentOpen { get; set; } = false;
 
         public void OpenDocument(string docTemplateFilePath)
         {
-            if (this._isDocumentOpen)
+            if (this.IsDocumentOpen)
             {
                 this._wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
             }
@@ -46,14 +42,103 @@ namespace TestReportDocument
             {
                 this.wordApp = new Application { Visible = true };
                 this._wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
-                this._isDocumentOpen = true;
+                this.IsDocumentOpen = true;
             }
         }
 
-        public void LoadReportItems(IEnumerable<TestreportItem> testStandardObjects)
+        public void LoadReportItems(IEnumerable<TestreportItem> testreportItems)
         {
-            this.ListOfTestsReportItems = testStandardObjects;
+            this.ListOfTestsReportItems = testreportItems;
         }
+
+        public void WriteReport()
+        {
+
+        }
+
+        private Dictionary<TestreportComponentType, Action<ITestReportComponent>> writeOperations 
+            = new Dictionary<TestreportComponentType, Action<ITestReportComponent >>()
+        {
+                { TestreportComponentType.Header, WriteText },
+                { TestreportComponentType.Text, WriteText },
+                { TestreportComponentType.Reference, WriteText },
+                { TestreportComponentType.Subtitle, WriteText },
+                { TestreportComponentType.Table, WriteTable },
+                { TestreportComponentType.List, WriteList }
+        };
+
+        internal void WriteReportItemToDocument(TestreportItem testreportItem)
+        {
+            foreach (var item in testreportItem.ListOfComponents)
+            {
+                var operation = writeOperations[item.TypeOfComponent];
+
+                operation(item);
+            };
+        }
+
+        private static Action<ITestReportComponent> WriteList = (t) =>
+        {
+            var testreportComponentList = (TestReportComponentList)t;
+            var listSettings = testreportComponentList.Settings;
+
+            object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
+            Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
+
+            para.Range.ListFormat.ApplyBulletDefault();
+            para.Format.SpaceAfter = listSettings.SpaceAfter; para.Range.Font.Italic = listSettings.Italic;
+            para.Range.Font.Bold = listSettings.Bold;
+            para.set_Style(_wordDoc.Styles[listSettings.StyleName]);
+
+            testreportComponentList.Text.ForEach(item => para.Range.InsertBefore(t));
+        };
+
+        internal static Action<ITestReportComponent> WriteText = (t) =>
+        {
+            {
+                var testreportComponentText = (TestReportComponentText)t;
+                var testSettings = testreportComponentText.Settings;
+
+                bool isInputValid = !string.IsNullOrWhiteSpace(testreportComponentText.Text);
+
+                if (isInputValid)
+                {
+                    Paragraph para;
+                    object rng = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
+                    para = _wordDoc.Content.Paragraphs.Add(ref rng);
+                    para.Range.Text = testreportComponentText.Text;
+                    para.Range.Font.Bold = testSettings.Bold;
+                    para.Range.Font.Italic = testSettings.Italic;
+                    para.Format.SpaceAfter = testSettings.SpaceAfter;
+                    para.set_Style(_wordDoc.Styles[testSettings.StyleName]);
+                    para.Range.InsertParagraphAfter();
+                }
+            }
+        };
+
+        internal static Action<ITestReportComponent> WriteTable = (t) =>
+        {
+            var testreportComponentTable = (TestReportComponentTable)t;
+            var tableSettings = testreportComponentTable.Settings;
+
+            Range endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
+            Table table = _wordDoc.Tables.Add(endOfDocRange, 2, testreportComponentTable.ColumnCount, ref missing, ref missing);
+            table.Range.ParagraphFormat.SpaceAfter = tableSettings.SpaceAfter;
+
+            //Add titles to top row of table
+            for (int c = 1; c <= testreportComponentTable.ColumnCount; c++)
+            {
+                table.Cell(1, c).Range.Text = testreportComponentTable.Titles[c - 1];
+                table.Cell(1, c).Range.ParagraphFormat.SpaceAfter = tableSettings.SpaceAfter;
+                table.Cell(1, c).Range.ParagraphFormat.SpaceBefore = tableSettings.SpaceBefore;
+                table.Cell(1, c).VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                table.Cell(1, c).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                table.Borders.InsideLineStyle = WdLineStyle.wdLineStyleSingle;
+                table.Borders.OutsideLineStyle = WdLineStyle.wdLineStyleSingle;
+            }
+            table.Rows[1].Range.Font.Bold = tableSettings.Bold;
+            table.Rows[1].Range.Font.Italic = tableSettings.Italic;
+        };
 
         /// <summary>
         /// Appends test report items to the test report template
@@ -61,7 +146,7 @@ namespace TestReportDocument
         /// <param name="testReportItem"></param>
         public void AppendTestReportItem(TestreportItem testReportItem)
         {
-            if (_isDocumentOpen)
+            if (IsDocumentOpen)
             {
                 AppendHeading(testReportItem.Title);
                 AppendSubTitle(testReportItem.SubTitle);
@@ -186,9 +271,9 @@ namespace TestReportDocument
                 Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
 
                 para.Range.ListFormat.ApplyBulletDefault();
-                para.Format.SpaceAfter = bulletpointSettings.SpaceAfter; para.Range.Font.Italic = bulletpointSettings.Italic;
-                para.Range.Font.Bold = bulletpointSettings.Bold;
-                para.set_Style(_wordDoc.Styles[bulletpointSettings.StyleName]);
+                para.Format.SpaceAfter = listSettings.SpaceAfter; para.Range.Font.Italic = listSettings.Italic;
+                para.Range.Font.Bold = listSettings.Bold;
+                para.set_Style(_wordDoc.Styles[listSettings.StyleName]);
 
                 testInformation.ForEach(t => para.Range.InsertBefore(t));
 
@@ -253,10 +338,10 @@ namespace TestReportDocument
         {
             object SaveChanges = false;
 
-            if (_isDocumentOpen)
+            if (IsDocumentOpen)
             {
                 this._wordDoc.Close(SaveChanges);
-                this._isDocumentOpen = false;
+                this.IsDocumentOpen = false;
             }
         }
 

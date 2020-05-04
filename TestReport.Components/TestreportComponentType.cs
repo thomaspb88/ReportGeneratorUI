@@ -5,7 +5,7 @@
         Null,
         Header,
         Subtitle,
-        Paragrapgh,
+        Text,
         List,
         Table,
         Reference

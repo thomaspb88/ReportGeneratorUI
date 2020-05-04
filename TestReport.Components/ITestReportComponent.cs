@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using TestreportComponent.Settings;
 
 namespace TestReport.Components
 {
@@ -6,6 +7,6 @@ namespace TestReport.Components
     {
         TestreportComponentType TypeOfComponent { get; set; }
 
-        void ParseXmlNode(XmlNode testReportItemNode);
+        ITestReportComponentSettings Settings { get; set; }
     }
 }

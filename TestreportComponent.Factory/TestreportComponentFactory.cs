@@ -11,12 +11,12 @@ namespace TestreportComponent.Factory
 {
     public static class TestReportComponentFactory
     {
-        public static ITestReportComponent GetComponent(XmlNode node)
+        public static ITestReportComponent GetComponentFromXmlNode(XmlNode node)
         {
             string nameOfComponents = String.IsNullOrWhiteSpace(node.Name) ? "Null" : node.Name;
             string component = $"TestReport.Components.TestReportComponent{ nameOfComponents }, TestReportComponent{ nameOfComponents }, Version = 1.0.0.0, Culture = neutral";
-            Type componentyType = Type.GetType(component);
-            object type = Activator.CreateInstance(componentyType);
+            Type componentType = Type.GetType(component);
+            object type = Activator.CreateInstance(componentType);
             ITestReportComponent testreportComponent = type as ITestReportComponent;
             return testreportComponent;
         }

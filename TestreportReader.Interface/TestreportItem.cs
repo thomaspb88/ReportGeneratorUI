@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using TestReport.Components;
 
 namespace TestReportItemReader.Interface
 {
-    public class TestreportItem
+    public class TestreportItem : ITestReportComponent
     {
 
         public TestreportItem()
@@ -12,7 +13,7 @@ namespace TestReportItemReader.Interface
             FurtherInfo = new List<string> { };
         }
 
-        public List<object> ListOfComponents { get; set; } = new List<object>();
+        public List<ITestReportComponent> ListOfComponents { get; set; } = new List<ITestReportComponent>();
         public ReportItemType reportItemType { get; set; } = ReportItemType.Null;
         public string Title { get; set; } = string.Empty;
         public string SubTitle { get; set; } = string.Empty;
@@ -24,6 +25,7 @@ namespace TestReportItemReader.Interface
         public List<string> TableTitles { get; set; }
         public int TableColumnCount { get; set; } = 1;
         public List<string> FurtherInfo { get; set; }
+        public TestreportComponentType TypeOfComponent { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     }
 
     public enum ReportItemType

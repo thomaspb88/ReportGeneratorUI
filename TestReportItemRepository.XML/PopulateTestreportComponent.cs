@@ -10,45 +10,67 @@ namespace TestReportItemRepository.XML
 {
     public static class PopulateTestreportComponent
     {
+
+        private static Func<ITestReportComponent, XmlNode, ITestReportComponent> ParseText = (t, x) =>
+        {
+            var tr = (TestReportComponentText)t;
+            tr.Text = x.InnerText;
+            return tr;
+        };
+
+        private static Func<ITestReportComponent, XmlNode, ITestReportComponent> ParseList = (t, x) =>
+        {
+            var c = (TestReportComponentList)t;
+            if (x.HasChildNodes)
+            {
+                var listOfText = x.ChildNodes.Cast<XmlNode>().Select(n => n.InnerText);
+                c.Text = listOfText.ToList();
+            }
+            else
+            {
+                c.Text.Add(x.InnerText);
+            }
+            return c;
+        };
+
+        private static Func<ITestReportComponent, XmlNode, ITestReportComponent> ParseTable = (t, x) =>
+        {
+            var c = (TestReportComponentTable)t;
+            if (x.HasChildNodes)
+            {
+                var listOfText = x.ChildNodes.Cast<XmlNode>().Select(n => n.InnerText);
+                c.Titles = listOfText.ToList();
+                return c;
+            }
+            return new TestReportComponentNull();
+        };
+
+        private static Func<ITestReportComponent, XmlNode, ITestReportComponent> ParseNull = (t, x) =>
+        {
+            return new TestReportComponentNull();
+        };
+
+        private static Dictionary<TestreportComponentType, Func<ITestReportComponent, XmlNode, ITestReportComponent>> parsingFunctions
+            = new Dictionary<TestreportComponentType, Func<ITestReportComponent, XmlNode, ITestReportComponent>>()
+            {
+                { TestreportComponentType.Header, ParseText },
+                { TestreportComponentType.List, ParseList },
+                { TestreportComponentType.Text, ParseText },
+                { TestreportComponentType.Reference, ParseText },
+                { TestreportComponentType.Subtitle, ParseText },
+                { TestreportComponentType.Table, ParseTable },
+                { TestreportComponentType.Null, ParseNull }
+            };
+
         internal static ITestReportComponent ParseXmlNode(XmlNode node, ref ITestReportComponent component)
         {
             string TypeOfComponent = node.Attributes["type"].Value;
 
             component.TypeOfComponent = Enum.TryParse(TypeOfComponent, out TestreportComponentType reportTypComponent) ? reportTypComponent : TestreportComponentType.Null;
 
-            if (component.TypeOfComponent != TestreportComponentType.List || component.TypeOfComponent != TestreportComponentType.Table)
-            {
-                var reportComponentText = (TestReportComponentText)component;
-                reportComponentText.Text = "";
+            var func = parsingFunctions[component.TypeOfComponent];
 
-                return reportComponentText;
-            }
-            else if (component.TypeOfComponent == TestreportComponentType.List)
-            {
-                var reportComponentList = (TestReportComponentList)component;
-                if (node.HasChildNodes)
-                {
-                    var listOfText = node.ChildNodes.Cast<XmlNode>().Select(n => n.InnerText);
-                    reportComponentList.Text = listOfText.ToList();
-                }
-                else
-                {
-                    reportComponentList.Text.Add(node.InnerText);
-                }
-                return reportComponentList;
-            }
-            else if (component.TypeOfComponent != TestreportComponentType.Table)
-            {
-                var reportComponentTable = (TestReportComponentTable)component;
-                if (node.HasChildNodes)
-                {
-                    var listOfText = node.ChildNodes.Cast<XmlNode>().Select(n => n.InnerText);
-                    reportComponentTable.Titles = listOfText.ToList();
-                    return reportComponentTable;
-                }
-            }
-
-            return (TestReportComponentNull)component;
+            return func(component, node);
         }
     }
 }

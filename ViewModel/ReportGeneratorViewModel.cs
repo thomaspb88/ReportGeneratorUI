@@ -31,7 +31,7 @@ namespace ReportGenerator
                 if(repo.Status == TestreportItemReaderState.Loaded)
                 {
                     repo.LoadFromDirectory(FileDirectoryPath);
-                    return new ObservableCollection<TestreportItem>(repo.GetAllTestReportItems());
+                    return new ObservableCollection<TestreportItem>(repo.GetAllTestreportItems());
                 }
 
                 return new ObservableCollection<TestreportItem>()

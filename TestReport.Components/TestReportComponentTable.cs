@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using TestreportComponent.Settings;
 
 namespace TestReport.Components
 {
@@ -22,13 +23,6 @@ namespace TestReport.Components
             } 
         }
 
-        public void ParseXmlNode(XmlNode node)
-        {
-            if (node.HasChildNodes)
-            {
-                var listOfText = node.ChildNodes.Cast<XmlNode>().Select(n => n.InnerText);
-                this.Titles = listOfText.ToList();
-            }
-        }
+        public ITestReportComponentSettings Settings { get; set; }
     }
 }

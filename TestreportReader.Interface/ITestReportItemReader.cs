@@ -4,7 +4,7 @@ namespace TestReportItemReader.Interface
 {
     public interface ITestreportItemReader
     {
-        List<TestreportItem> GetAllTestReportItems();
+        List<TestreportItem> GetAllTestreportItems();
         TestreportItem GetByName(string testName);
         void LoadFromDirectory(string directoryPath);
         TestreportItemReaderState Status { get; set; }
