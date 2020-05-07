@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using TestReport.Components;
 
 namespace TestReportDocument
 {
-    public class TestReport
+    public class TestReportDoc
     {
         private IEnumerable<TestReportComponentBody> ListOfTestsReportItems { get; set; }
 
-        private Application wordApp;
-        private Document _wordDoc;
-        object missing = System.Reflection.Missing.Value;
-        object endOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
+        private static Application wordApp;
+        private static Document _wordDoc;
+        private static object missing = System.Reflection.Missing.Value;
+        private static object endOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
 
         private bool IsDocumentOpen { get; set; } = false;
 
@@ -21,13 +21,13 @@ namespace TestReportDocument
         {
             if (this.IsDocumentOpen)
             {
-                this._wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
+                _wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
             }
             else
             {
-                this.wordApp = new Application { Visible = true };
-                this._wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
-                this.IsDocumentOpen = true;
+                wordApp = new Application { Visible = true };
+                _wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
+                IsDocumentOpen = true;
             }
         }
 
@@ -42,7 +42,6 @@ namespace TestReportDocument
             { TestreportComponentType.List, WriteList }
         };
 
-
         public void LoadReportItems(IEnumerable<TestReportComponentBody> testreportItems)
         {
             this.ListOfTestsReportItems = testreportItems;
@@ -54,7 +53,7 @@ namespace TestReportDocument
             {
                 WriteReportItemToDocument(item);            
             }
-            CreateReferencesPage();
+            //CreateReferencesPage();
         }
 
         internal void WriteReportItemToDocument(TestReportComponentBody testreportItem)
@@ -80,7 +79,7 @@ namespace TestReportDocument
             para.Range.Font.Bold = listSettings.Bold;
             para.set_Style(_wordDoc.Styles[listSettings.StyleName]);
 
-            testreportComponentList.Text.ForEach(item => para.Range.InsertBefore(t));
+            testreportComponentList.Text.ForEach(item => para.Range.InsertBefore(item));
         };
 
         internal static Action<ITestReportComponent> WriteText = (t) =>
@@ -130,39 +129,39 @@ namespace TestReportDocument
             table.Rows[1].Range.Font.Italic = tableSettings.Italic;
         };
 
-        public void CreateReferencesPage()
-        {
-            //Move to new Page
-            _wordDoc.Words.Last.InsertBreak(WdBreakType.wdPageBreak);
-            //Title Reference
-            AppendHeading("References");
+        //public void CreateReferencesPage()
+        //{
+        //    //Move to new Page
+        //    _wordDoc.Words.Last.InsertBreak(WdBreakType.wdPageBreak);
+        //    //Title Reference
+        //    AppendHeading("References");
 
-            //List of references
-            object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
-            Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
-            para.Range.ListFormat.ApplyNumberDefault();
-            para.Range.Font.Bold = textSettings.Bold;
+        //    //List of references
+        //    object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
+        //    Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
+        //    para.Range.ListFormat.ApplyNumberDefault();
+        //    para.Range.Font.Bold = textSettings.Bold;
 
-            //Test object reference property/s here
-            var listOfReferences = ListOfTestsReportItems.Where(test => test.Reference != string.Empty).Select(test => test.Reference);
-            var referenceArray = listOfReferences.ToList();
+        //    //Test object reference property/s here
+        //    var listOfReferences = ListOfTestsReportItems.Where(test => test.Reference != string.Empty).Select(test => test.Reference);
+        //    var referenceArray = listOfReferences.ToList();
 
-            for (var i = 0; i < listOfReferences.Count(); i++)
-            {
-                if(i != listOfReferences.Count()-1)
-                {
-                    para.Range.InsertBefore(referenceArray[i] + "\n");
-                }
-                else
-                {
-                    para.Range.InsertBefore(referenceArray[i]);
-                }
-            }
-        }
+        //    for (var i = 0; i < listOfReferences.Count(); i++)
+        //    {
+        //        if(i != listOfReferences.Count()-1)
+        //        {
+        //            para.Range.InsertBefore(referenceArray[i] + "\n");
+        //        }
+        //        else
+        //        {
+        //            para.Range.InsertBefore(referenceArray[i]);
+        //        }
+        //    }
+        //}
 
         public void ReplaceWord(string oldWord, string newWord)
         {
-            this._wordDoc.Activate();
+            _wordDoc.Activate();
             FindAndReplace(oldWord, newWord);
         }
 
@@ -174,7 +173,7 @@ namespace TestReportDocument
         public void SaveAs(string wordTemplateFilePath, string wordTemplateFileName)
         {
             object FileFormat = WdSaveFormat.wdFormatDocumentDefault;
-            this._wordDoc.SaveAs2(Path.Combine(wordTemplateFilePath, wordTemplateFileName), ref FileFormat);
+            _wordDoc.SaveAs2(Path.Combine(wordTemplateFilePath, wordTemplateFileName), ref FileFormat);
         }
 
         /// <summary>
@@ -186,8 +185,8 @@ namespace TestReportDocument
 
             if (IsDocumentOpen)
             {
-                this._wordDoc.Close(SaveChanges);
-                this.IsDocumentOpen = false;
+                _wordDoc.Close(SaveChanges);
+                IsDocumentOpen = false;
             }
         }
 

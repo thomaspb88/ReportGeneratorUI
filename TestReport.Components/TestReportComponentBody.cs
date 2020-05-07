@@ -33,7 +33,7 @@ namespace TestReport.Components
 
             }
 
-            private set { }; 
+            set { }
         
         }
     }

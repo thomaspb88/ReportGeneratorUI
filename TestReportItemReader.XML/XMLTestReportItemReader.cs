@@ -144,9 +144,8 @@ namespace TestReportItemReader.XML
                     }
                 }
 
-                
+                return new TestReportComponentBody() { Title = $"Error - something went wrong trying to read this object in the test report" };
 
-                return testReportBody;
             }
             catch (XmlException ex)
             {

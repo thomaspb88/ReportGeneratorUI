@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</ProjectGuid>
+    <ProjectGuid>{DE09D63B-5B43-4429-8FD3-2DA4B257022F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestReportItemReader.Interface</RootNamespace>
-    <AssemblyName>TestReportItemReader.Interface</AssemblyName>
+    <RootNamespace>TestReportItemReader.Factory</RootNamespace>
+    <AssemblyName>TestReportItemReader.Factory</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,17 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITestReportItemReader.cs" />
+    <Compile Include="TestreportItemReaderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestReport.Components\TestReport.Components.csproj">
-      <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
-      <Name>TestReport.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestreportDocument.Settings\TestreportComponent.Settings.csproj">
-      <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
-      <Name>TestreportComponent.Settings</Name>
+    <ProjectReference Include="..\TestreportReader.Interface\TestReportItemReader.Interface.csproj">
+      <Project>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</Project>
+      <Name>TestReportItemReader.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

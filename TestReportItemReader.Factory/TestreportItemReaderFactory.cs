@@ -8,7 +8,7 @@ namespace TestReportItemReader.Factory
     {
         public static ITestreportItemReader GetRepository()
         {
-            string repoType = ConfigurationManager.AppSettings["repsoitoryType"];
+            string repoType = ConfigurationManager.AppSettings["RepositoryType"];
             Type repositoryType = Type.GetType(repoType);
             object repository = Activator.CreateInstance(repositoryType);
             ITestreportItemReader testreportItemRepository = repository as ITestreportItemReader;

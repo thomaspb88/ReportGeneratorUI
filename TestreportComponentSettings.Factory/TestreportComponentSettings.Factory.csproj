@@ -49,6 +49,10 @@
       <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
       <Name>TestReport.Components</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestreportDocument.Settings\TestreportComponent.Settings.csproj">
+      <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
+      <Name>TestreportComponent.Settings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

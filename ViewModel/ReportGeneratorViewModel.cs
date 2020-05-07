@@ -1,8 +1,5 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Xml;
 using TestReport.Components;
 using TestReportDocument;
 using TestReportItemReader.Factory;
@@ -232,15 +229,15 @@ namespace ReportGenerator
 
             if (repo.Status != TestreportItemReaderState.Unknown && ChosenTests.Count != 0)
             {
-                TestReport testReport = new TestReport();
+                var testReport = new TestReportDoc();
                 testReport.LoadReportItems(ChosenTests);
 
                 testReport.ReplaceWord("<<Customer>>", Customer);
                 testReport.ReplaceWord("<<Address>>", Address.Replace("\n", ""));
                 testReport.ReplaceWord("<<Project>>", Project);
                 testReport.ReplaceWord("<<Title>>", ReportTitle);
-                testReport.AppendTests();
-                testReport.AppendReferences();
+                //testReport.AppendTests();
+                //testReport.AppendReferences();
             }
         }
 
