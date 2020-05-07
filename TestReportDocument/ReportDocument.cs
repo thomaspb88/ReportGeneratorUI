@@ -1,18 +1,14 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using ReportItemReader.Interface;
-using System.Configuration;
 using System;
 using Report.Components;
-using ReportComponent.Settings;
 
-namespace TestReportDocument
+namespace Report.Document
 {
-    public class TestReport
+    public class ReportDocument
     {
-        public IEnumerable<TestreportItem> ListOfTestsReportItems { get; set; }
+        public IEnumerable<ReportComponentBody> ListOfTestsReportItems { get; set; }
         private Application wordApp;
         private Document _wordDoc;
         object missing = System.Reflection.Missing.Value;
@@ -34,19 +30,19 @@ namespace TestReportDocument
             }
         }
 
-        private Dictionary<TestreportComponentType, Action<ITestReportComponent>> writeOperations
-        = new Dictionary<TestreportComponentType, Action<ITestReportComponent>>()
+        private Dictionary<ReportComponentType, Action<IReportComponent>> writeOperations
+        = new Dictionary<ReportComponentType, Action<IReportComponent>>()
         { 
-            { TestreportComponentType.Header, WriteText },
-            { TestreportComponentType.Text, WriteText },
-            { TestreportComponentType.Reference, WriteText },
-            { TestreportComponentType.Subtitle, WriteText },
-            { TestreportComponentType.Table, WriteTable },
-            { TestreportComponentType.List, WriteList }
+            { ReportComponentType.Header, WriteText },
+            { ReportComponentType.Text, WriteText },
+            { ReportComponentType.Reference, WriteText },
+            { ReportComponentType.Subtitle, WriteText },
+            { ReportComponentType.Table, WriteTable },
+            { ReportComponentType.List, WriteList }
         };
 
 
-        public void LoadReportItems(IEnumerable<TestreportItem> testreportItems)
+        public void LoadReportItems(IEnumerable<ReportComponentBody> testreportItems)
         {
             this.ListOfTestsReportItems = testreportItems;
         }
@@ -57,10 +53,10 @@ namespace TestReportDocument
             {
                 WriteReportItemToDocument(item);            
             }
-            CreateReferencesPage()
+            //CreateReferencesPage()
         }
 
-        internal void WriteReportItemToDocument(TestreportItem testreportItem)
+        internal void WriteReportItemToDocument(ReportComponentBody testreportItem)
         {
             foreach (var item in testreportItem.ListOfComponents)
             {
@@ -70,9 +66,9 @@ namespace TestReportDocument
             };
         }
 
-        internal static Action<ITestReportComponent> WriteList = (t) =>
+        internal static Action<IReportComponent> WriteList = (t) =>
         {
-            var testreportComponentList = (TestReportComponentList)t;
+            var testreportComponentList = (ReportComponentList)t;
             var listSettings = testreportComponentList.Settings;
 
             object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
@@ -86,10 +82,10 @@ namespace TestReportDocument
             testreportComponentList.Text.ForEach(item => para.Range.InsertBefore(t));
         };
 
-        internal static Action<ITestReportComponent> WriteText = (t) =>
+        internal static Action<IReportComponent> WriteText = (t) =>
         {
             {
-                var testreportComponentText = (TestReportComponentText)t;
+                var testreportComponentText = (ReportComponentText)t;
                 var testSettings = testreportComponentText.Settings;
 
                 bool isInputValid = !string.IsNullOrWhiteSpace(testreportComponentText.Text);
@@ -109,9 +105,9 @@ namespace TestReportDocument
             }
         };
 
-        internal static Action<ITestReportComponent> WriteTable = (t) =>
+        internal static Action<IReportComponent> WriteTable = (t) =>
         {
-            var testreportComponentTable = (TestReportComponentTable)t;
+            var testreportComponentTable = (ReportComponentTable)t;
             var tableSettings = testreportComponentTable.Settings;
 
             Range endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
@@ -133,35 +129,35 @@ namespace TestReportDocument
             table.Rows[1].Range.Font.Italic = tableSettings.Italic;
         };
 
-        public void CreateReferencesPage()
-        {
-            //Move to new Page
-            _wordDoc.Words.Last.InsertBreak(WdBreakType.wdPageBreak);
-            //Title Reference
-            AppendHeading("References");
+        //public void CreateReferencesPage()
+        //{
+        //    //Move to new Page
+        //    _wordDoc.Words.Last.InsertBreak(WdBreakType.wdPageBreak);
+        //    //Title Reference
+        //    AppendHeading("References");
 
-            //List of references
-            object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
-            Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
-            para.Range.ListFormat.ApplyNumberDefault();
-            para.Range.Font.Bold = textSettings.Bold;
+        //    //List of references
+        //    object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
+        //    Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
+        //    para.Range.ListFormat.ApplyNumberDefault();
+        //    para.Range.Font.Bold = textSettings.Bold;
 
-            //Test object reference property/s here
-            var listOfReferences = ListOfTestsReportItems.Where(test => test.Reference != string.Empty).Select(test => test.Reference);
-            var referenceArray = listOfReferences.ToList();
+        //    //Test object reference property/s here
+        //    var listOfReferences = ListOfTestsReportItems.Where(test => test.Reference != string.Empty).Select(test => test.Reference);
+        //    var referenceArray = listOfReferences.ToList();
 
-            for (var i = 0; i < listOfReferences.Count(); i++)
-            {
-                if(i != listOfReferences.Count()-1)
-                {
-                    para.Range.InsertBefore(referenceArray[i] + "\n");
-                }
-                else
-                {
-                    para.Range.InsertBefore(referenceArray[i]);
-                }
-            }
-        }
+        //    for (var i = 0; i < listOfReferences.Count(); i++)
+        //    {
+        //        if(i != listOfReferences.Count()-1)
+        //        {
+        //            para.Range.InsertBefore(referenceArray[i] + "\n");
+        //        }
+        //        else
+        //        {
+        //            para.Range.InsertBefore(referenceArray[i]);
+        //        }
+        //    }
+        //}
 
         public void ReplaceWord(string oldWord, string newWord)
         {

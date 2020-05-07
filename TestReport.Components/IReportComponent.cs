@@ -1,4 +1,4 @@
-﻿using ReportComponent.Settings;
+﻿using Component.Settings;
 
 namespace Report.Components
 {

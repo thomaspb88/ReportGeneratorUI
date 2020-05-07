@@ -7,8 +7,8 @@
     <ProjectGuid>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestReport.Components</RootNamespace>
-    <AssemblyName>TestReport.Components</AssemblyName>
+    <RootNamespace>Report.Components</RootNamespace>
+    <AssemblyName>Report.Components</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -52,8 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
-      <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
-      <Name>TestreportComponent.Settings</Name>
+      <Project>{db1f83e0-6544-468f-a480-70658a373ac3}</Project>
+      <Name>Component.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Configuration;
-using TestReportItemReader.Interface;
+using ReportItemReader.Interface;
 
-namespace TestReportItemReader.Factory
+namespace ReportItemReader.Factory
 {
-    public static class TestreportItemReaderFactory
+    public static class ReportItemReaderFactory
     {
-        public static ITestreportItemReader GetRepository()
+        public static IReportItemReader GetRepository()
         {
             string repoType = ConfigurationManager.AppSettings["repsoitoryType"];
             Type repositoryType = Type.GetType(repoType);
             object repository = Activator.CreateInstance(repositoryType);
-            ITestreportItemReader testreportItemRepository = repository as ITestreportItemReader;
+            IReportItemReader testreportItemRepository = repository as IReportItemReader;
             return testreportItemRepository;
         }
     }

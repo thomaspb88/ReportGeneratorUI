@@ -1,5 +1,5 @@
 ﻿using Report.Components;
-using ReportComponent.Settings;
+using Component.Settings;
 
 namespace ReportComponentSettings.Factory
 {
@@ -7,7 +7,7 @@ namespace ReportComponentSettings.Factory
     {
         public static ComponentSettings GetSetting(IReportComponent component)
         {
-            switch (component.)
+            switch (component.TypeOfComponent)
             {
                 case ReportComponentType.Null:
                     return new ComponentSettings();

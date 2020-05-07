@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ReportComponent.Settings;
+using Component.Settings;
 
 
 namespace Report.Components
@@ -8,7 +8,7 @@ namespace Report.Components
     {
         public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.List;
         public List<string> Text { get; set; } = new List<string>();
-        public ComponentSettings Settings { get; set; } = new TextSettings();
+        public ComponentSettings Settings { get; set; }
     }
 
 }

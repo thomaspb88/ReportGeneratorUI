@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using Report.Components;
+using System.Collections.Generic;
 
-namespace TestReportItemReader.Interface
+namespace ReportItemReader.Interface
 {
-    public interface ITestreportItemReader
+    public interface IReportItemReader
     {
-        List<TestreportItem> GetAllTestreportItems();
-        TestreportItem GetByName(string testName);
-        void LoadFromDirectory(string directoryPath);
-        TestreportItemReaderState Status { get; set; }
+        List<ReportComponentBody> GetAllTestreportItems();
+        ReportComponentBody GetByName(string testName);
+        void Load(string directoryPath);
+        ReportItemReaderState Status { get; set; }
         string Directory { get; }
     }
 
-    public enum TestreportItemReaderState
+    public enum ReportItemReaderState
     {
         Unknown,
         Intialised,

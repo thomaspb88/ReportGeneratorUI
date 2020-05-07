@@ -1,4 +1,4 @@
-﻿using ReportComponent.Settings;
+﻿using Component.Settings;
 using System.Collections.Generic;
 using System.Linq;
 

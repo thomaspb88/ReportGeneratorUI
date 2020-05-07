@@ -7,8 +7,8 @@
     <ProjectGuid>{DE09D63B-5B43-4429-8FD3-2DA4B257022F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestReportItemRepository.Factory</RootNamespace>
-    <AssemblyName>TestReportItemRepository.Factory</AssemblyName>
+    <RootNamespace>ReportItemReader.Factory</RootNamespace>
+    <AssemblyName>ReportItemReader.Factory</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,8 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestreportItemReaderFactory.cs" />
+    <Compile Include="ReportItemReaderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestreportReader.Interface\ReportItemReader.Interface.csproj">
+      <Project>{f073a4d4-b37d-4d0f-9179-cb1eea190ec7}</Project>
+      <Name>ReportItemReader.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

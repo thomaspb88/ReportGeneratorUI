@@ -1,5 +1,5 @@
 ﻿using Report.Components;
-using ReportComponent.Settings;
+using Component.Settings;
 
 namespace Report.Components
 {
@@ -8,6 +8,6 @@ namespace Report.Components
         public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Null;
 
         public string Text { get; set; } = "Error - Unable to read this component";
-        public ComponentSettings Settings { get; set; } = new TextSettings();
+        public ComponentSettings Settings { get; set; }
     }
 }

@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Office.Interop.Word;
-using TestreportComponent.Settings;
-using TestReportDocument;
-
-namespace TestReportDocument
+﻿namespace Component.Settings
 {
-    public class TextSettings : ITestReportComponentSettings
+    public class ComponentSettings
     {
 
         public int Bold { get; set; } = 0;

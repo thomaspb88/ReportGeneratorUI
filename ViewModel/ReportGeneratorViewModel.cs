@@ -1,19 +1,16 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
+using Report.Components;
+using ReportItemReader.Factory;
+using ReportItemReader.Interface;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Xml;
-using TestReportDocument;
-using TestReportItemReader.Factory;
-using TestReportItemReader.Interface;
-using TestReportItemReader.XML;
+using Report.Document;
 
 namespace ReportGenerator
 {
     public class ViewModelReportGenerator : BaseViewModel
 
     {
-        ITestreportItemReader repo = TestreportItemReaderFactory.GetRepository();
+        IReportItemReader repo = ReportItemReaderFactory.GetRepository();
 
         public RelayCommand UpdateFileDirectoryPathCommand { get; private set; }
         public RelayCommand ShowPopUpCommand { get; private set; }
@@ -23,20 +20,20 @@ namespace ReportGenerator
 
         #region Property - Test List for Combobox
 
-        public ObservableCollection<TestreportItem> TestList
+        public ObservableCollection<ReportComponentBody> TestList
         {
             get 
             {
-                ITestreportItemReader repo = new XMLTestReportItemReader();
-                if(repo.Status == TestreportItemReaderState.Loaded)
+                IReportItemReader repo = ReportItemReaderFactory.GetRepository();
+                if(repo.Status == ReportItemReaderState.Loaded)
                 {
-                    repo.LoadFromDirectory(FileDirectoryPath);
-                    return new ObservableCollection<TestreportItem>(repo.GetAllTestreportItems());
+                    repo.Load(FileDirectoryPath);
+                    return new ObservableCollection<ReportComponentBody>(repo.GetAllTestreportItems());
                 }
 
-                return new ObservableCollection<TestreportItem>()
+                return new ObservableCollection<ReportComponentBody>()
                 {
-                   new TestreportItem(){ Title = "Error - Something went wrong" }
+                   new ReportComponentBody(){ Title = "Error - Something went wrong" }
                 };
             }
         }
@@ -44,9 +41,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Chosen Test List
-        private ObservableCollection<TestreportItem> _chosenTests;
+        private ObservableCollection<ReportComponentBody> _chosenTests;
 
-        public ObservableCollection<TestreportItem> ChosenTests
+        public ObservableCollection<ReportComponentBody> ChosenTests
         {
             get 
             {
@@ -60,9 +57,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Selected Test on Combobox
-        private TestreportItem _selectedTest;
+        private ReportComponentBody _selectedTest;
 
-        public TestreportItem SelectedTest
+        public ReportComponentBody SelectedTest
         {
             get { return _selectedTest; }
             set 
@@ -74,9 +71,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Selected Test on ListBox
-        private TestreportItem _selectedListItem;
+        private ReportComponentBody _selectedListItem;
 
-        public TestreportItem SelectedListItem
+        public ReportComponentBody SelectedListItem
         {
             get { return _selectedListItem; }
             set
@@ -178,14 +175,14 @@ namespace ReportGenerator
         #region Constructor - ReportGeneratorViewModel
         public ViewModelReportGenerator()
         {
-            _chosenTests = new ObservableCollection<TestreportItem>();
+            _chosenTests = new ObservableCollection<ReportComponentBody>();
             AddTestsCommand = new RelayCommand(() => ExecuteAddTestsToListCommand(), () => CanExecuteAddTestsCommand());
             RemoveTestCommand = new RelayCommand(() => ExecuteRemoveTestsCommand(), () => CanExecuteRemoveTestsCommand());
             CreateReportCommand = new RelayCommand(() => ExecuteCreateReportCommand(), () => CanExecuteCreateReportCommand());
             ShowPopUpCommand = new RelayCommand(() => ExecuteShowPopUpCommand(), () => CanExecuteShowPopUpCommand());
             UpdateFileDirectoryPathCommand = new RelayCommand(() => ExecuteUpdateFileDirectoryPath(), () => CanExecuteUpdateFileDirectoryPath());
 
-            repo.LoadFromDirectory(FileDirectoryPath);
+            repo.Load(FileDirectoryPath);
 
        
         }
@@ -229,17 +226,17 @@ namespace ReportGenerator
         private void ExecuteCreateReportCommand()
         {
 
-            if (repo.Status != TestreportItemReaderState.Unknown && ChosenTests.Count != 0)
+            if (repo.Status != ReportItemReaderState.Unknown && ChosenTests.Count != 0)
             {
-                TestReport testReport = new TestReport();
+                ReportDocument testReport = new ReportDocument(); ; 
                 testReport.LoadReportItems(ChosenTests);
 
                 testReport.ReplaceWord("<<Customer>>", Customer);
                 testReport.ReplaceWord("<<Address>>", Address.Replace("\n", ""));
                 testReport.ReplaceWord("<<Project>>", Project);
                 testReport.ReplaceWord("<<Title>>", ReportTitle);
-                testReport.AppendTests();
-                testReport.AppendReferences();
+                //testReport.AppendTests();
+                //testReport.AppendReferences();
             }
         }
 
@@ -250,7 +247,7 @@ namespace ReportGenerator
                 && !string.IsNullOrWhiteSpace(Project) 
                 && !string.IsNullOrWhiteSpace(Address)
                 && TestList.Count != 0 
-                && repo.Status != TestreportItemReaderState.Unknown;
+                && repo.Status != ReportItemReaderState.Unknown;
         }
         #endregion
 
