@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TestReportItemReader.Interface;
+using ReportItemReader.Interface;
 using System.Configuration;
 using System;
-using TestReport.Components;
-using TestreportComponent.Settings;
+using Report.Components;
+using ReportComponent.Settings;
 
 namespace TestReportDocument
 {

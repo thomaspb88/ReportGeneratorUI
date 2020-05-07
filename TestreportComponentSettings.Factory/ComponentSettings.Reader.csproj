@@ -45,19 +45,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
-      <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
-      <Name>Report.Components</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
       <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
       <Name>Component.Settings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestReportDocument\ReportDocument.csproj">
-      <Project>{93cfebca-7684-4254-aae2-c766f7d9158b}</Project>
-      <Name>ReportDocument</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestreportDocument.Settings\TestreportComponent.Settings.csproj">
+    <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
       <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
       <Name>TestreportComponent.Settings</Name>
     </ProjectReference>
