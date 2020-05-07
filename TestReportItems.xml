@@ -1,0 +1,62 @@
+<root>
+	<Body type="TestStandard">
+		<Text type="Title">Test Standard 1</Text>
+		<Text type="SubTitle">Subtitle</Text>
+		<Table>
+			<Text>Title A</Text>
+			<Text>Title B</Text>
+			<Text>Title C</Text>
+			<Text>Title D</Text>
+		</Table>
+		<List>
+			<Text>Tested with fire</Text>
+		</List>
+		<Text type="Reference">Test Standard 1</Text>
+	</Body>
+	<Body type="TestStandard">
+		<Text type="Title">Test Standard 2</Text>
+		<Text type="SubTitle">Subtitle</Text>
+		<Table>
+			<Text>Title A</Text>
+			<Text>Title B</Text>
+			<Text>Title C</Text>
+			<Text>Title D</Text>
+		</Table>
+		<List>
+			<Text>Tested with fire</Text>
+		</List>
+		<Text type="Reference">Test Standard 2</Text>
+	</Body>
+	<Body type="ProductStandard">
+		<Text type="Title">Product Standard 2</Text>
+		<Text type="SubTitle">Product Standard Title</Text>
+		<Body type="TestStandard">
+    		<Text type="Title">Test Standard 1</Text>
+    		<Text type="SubTitle">Subtitle</Text>
+    		<Table>
+    			<Text>Title A</Text>
+    			<Text>Title B</Text>
+    			<Text>Title C</Text>
+    			<Text>Title D</Text>
+    		</Table>
+    		<List>
+    			<Text>Tested with fire</Text>
+    		</List>
+    		<Text type="Reference">Test Standard 1</Text>
+    	</Body>
+    	<Body type="TestStandard">
+    		<Text type="Title">Test Standard 2</Text>
+    		<Text type="SubTitle">Subtitle</Text>
+    		<Table>
+    			<Text>Title A</Text>
+    			<Text>Title B</Text>
+    			<Text>Title C</Text>
+    			<Text>Title D</Text>
+    		</Table>
+    		<List>
+    			<Text>Tested with fire</Text>
+    		</List>
+    		<Text type="Reference">Test Standard 2</Text>
+    	</Body>
+	</Body>
+</root>
