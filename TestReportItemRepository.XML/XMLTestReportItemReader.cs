@@ -9,7 +9,6 @@ using TestreportComponent.Factory;
 using TestReportItemReader.Interface;
 using TestReportItemRepository.XML;
 
-
 namespace TestReportItemReader.XML
 {
 
@@ -59,11 +58,11 @@ namespace TestReportItemReader.XML
         }
 
 
-        public TestReportComponentBody GetByName(string testName)
+        public TestreportItem GetByName(string testName)
         {
             if (string.IsNullOrEmpty(testName)) { throw new ArgumentNullException("testName"); }
 
-            var testReportItem = new TestReportComponentBody();
+            var testReportItem = new TestreportItem();
 
             try
             {
@@ -77,7 +76,7 @@ namespace TestReportItemReader.XML
             {
                 Debug.WriteLine(string.Format("XmlException for test name: {0}", ex.Message));
 
-                testReportItem = new TestReportComponentBody() { Title = $"Error - { testName } something went wrong trying to read this object in the test report" };
+                testReportItem = new TestreportItem() { Title = $"Error - { testName } something went wrong trying to read this object in the test report" };
             }
 
             return testReportItem;
@@ -88,9 +87,9 @@ namespace TestReportItemReader.XML
         /// </summary>
         /// <returns>List of TestReportItem objects</returns>
 
-        public List<TestReportComponentBody> GetAllTestreportItems()
+        public List<TestreportItem> GetAllTestreportItems()
         {
-            List<TestReportComponentBody> testReportItemList = new List<TestReportComponentBody>();
+            List<TestreportItem> testReportItemList = new List<TestreportItem>();
 
             try
             {
@@ -112,41 +111,27 @@ namespace TestReportItemReader.XML
             }
         }
 
-        public TestReportComponentBody GetTesteportItem(XmlNode node)
+        public TestreportItem GetTesteportItem(XmlNode node)
         {
             try
             {
-                var nodeAttribute = node.Attributes["type"].Value;
+                var testReportItem = new TestreportItem();
 
-                var componentType = Enum.TryParse(nodeAttribute, out TestreportComponentType reportItemType) ? reportItemType : TestreportComponentType.Null;
+                var testReportItemType = node.Attributes["type"].Value;
 
-                if (componentType == TestreportComponentType.Body)
+                testReportItem.reportItemType = Enum.TryParse(testReportItemType, out ReportItemType reportItemType) ? reportItemType : ReportItemType.Null;
+
+
+                foreach ( XmlNode childNode in node.ChildNodes)
                 {
-                    var testReportBody = new TestReportComponentBody();
+                    ITestReportComponent reportComponent = TestReportComponentFactory.GetComponentFromXmlNode(childNode);
 
-                    var nodeType = node.Attributes["type"].Value;
+                    ITestReportComponent intailisedTestReportComponent = PopulateTestreportComponent.ParseXmlNode(childNode, ref reportComponent);
 
-                    var reportType = Enum.TryParse(nodeType, out TestreportComponentType bodyType) ? bodyType : TestreportComponentType.Null;
-
-                    foreach ( XmlNode childNode in node.ChildNodes)
-                    {
-
-                        if (componentType == TestreportComponentType.Body) 
-                        {
-                            return GetTesteportItem(childNode);
-                        };
-
-                        ITestReportComponent reportComponent = TestReportComponentFactory.GetComponentFromXmlNode(childNode);
-
-                        ITestReportComponent intailisedTestReportComponent = PopulateTestreportComponent.ParseXmlNode(childNode, ref reportComponent);
-
-                        testReportBody.ListOfComponents.Add(intailisedTestReportComponent);
-                    }
+                    testReportItem.ListOfComponents.Add(intailisedTestReportComponent);
                 }
 
-                
-
-                return testReportBody;
+                return testReportItem;
             }
             catch (XmlException ex)
             {

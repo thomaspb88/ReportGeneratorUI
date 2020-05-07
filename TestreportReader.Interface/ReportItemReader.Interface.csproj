@@ -7,8 +7,8 @@
     <ProjectGuid>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReportItemRepository.Interface</RootNamespace>
-    <AssemblyName>ReportItemRepository.Interface</AssemblyName>
+    <RootNamespace>TestReportItemRepository.Interface</RootNamespace>
+    <AssemblyName>TestReportItemRepository.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,17 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IReportItemReader.cs" />
+    <Compile Include="ITestReportItemReader.cs" />
+    <Compile Include="TestreportItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
+    <ProjectReference Include="..\TestReport.Components\TestReport.Components.csproj">
       <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
-      <Name>Report.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
-      <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
-      <Name>Component.Settings</Name>
+      <Name>TestReport.Components</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

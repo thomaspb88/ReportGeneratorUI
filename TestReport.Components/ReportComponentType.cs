@@ -8,7 +8,6 @@
         Text,
         List,
         Table,
-        Reference,
-        Body
+        Reference
     }
 }
