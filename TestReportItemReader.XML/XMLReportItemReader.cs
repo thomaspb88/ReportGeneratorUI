@@ -7,6 +7,7 @@ using System.Xml;
 using Report.Components;
 using ReportComponent.Factory;
 using ReportItemReader.Interface;
+using ReportItem.Common;
 
 
 namespace ReportItemReader.XML
@@ -117,7 +118,7 @@ namespace ReportItemReader.XML
             {
                 var nodeAttribute = node.Attributes["type"].Value;
 
-                var componentType = Enum.TryParse(nodeAttribute, out ReportComponentType reportItemType) ? reportItemType : ReportComponentType.Null;
+                var componentType = Enum.TryParse(nodeAttribute, out ReportItemType type) ? reportItemType : ReportItemType.Null;
 
                 if (componentType == ReportComponentType.Body)
                 {

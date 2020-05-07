@@ -41,18 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PopulateReportComponent.cs" />
     <Compile Include="XMLReportItemReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ReportItem.Common\ReportItem.Common.csproj">
+      <Project>{cfecfd02-a65c-4970-9cd7-f06250ca24fb}</Project>
+      <Name>ReportItem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportComponent.Factory\ReportComponent.Factory.csproj">
+      <Project>{a74f0679-2c59-4d2f-8c7c-a352526ee022}</Project>
+      <Name>ReportComponent.Factory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
       <Project>{e5f3af3b-cea8-46b8-99d2-09802dd6459b}</Project>
       <Name>Report.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestreportComponent.Factory\ReportComponent.Factory.csproj">
-      <Project>{51B44302-0676-4DF8-BB5F-D1A2DFB27648}</Project>
-      <Name>ReportComponent.Factory</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestreportReader.Interface\ReportItemReader.Interface.csproj">
       <Project>{f073a4d4-b37d-4d0f-9179-cb1eea190ec7}</Project>

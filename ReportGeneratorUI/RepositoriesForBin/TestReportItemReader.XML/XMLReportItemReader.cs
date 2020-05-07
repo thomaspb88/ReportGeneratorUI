@@ -4,22 +4,21 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using TestReport.Components;
-using TestreportComponent.Factory;
-using TestReportItemReader.Interface;
-using TestReportItemRepository.XML;
+using Report.Components;
+using ReportComponent.Factory;
+using ReportItemReader.Interface;
 
 
-namespace TestReportItemReader.XML
+namespace ReportItemReader.XML
 {
 
-    public class XMLTestReportItemReader : ITestreportItemReader
+    public class XMLReportItemReader : IReportItemReader
     {
         private readonly XmlDocument xmlDocument = new XmlDocument();
 
-        private TestreportItemReaderState status;
+        private ReportItemReaderState status;
 
-        public TestreportItemReaderState Status
+        public ReportItemReaderState Status
         {
             get { return status; }
             set { status = value; }
@@ -35,35 +34,35 @@ namespace TestReportItemReader.XML
                 _directory = value; 
                 if (String.IsNullOrWhiteSpace(value) || !File.Exists(value))
                 {
-                    this.status = TestreportItemReaderState.Unknown;
+                    this.status = ReportItemReaderState.Unknown;
                 }
                 else
                 {
-                    this.status = TestreportItemReaderState.Intialised;
+                    this.status = ReportItemReaderState.Intialised;
                 }
             }
         }
         
-        public void LoadFromDirectory(string directoryPath)
+        public void Load(string directoryPath)
         {
             Directory = directoryPath;
 
-            if (this.Status != TestreportItemReaderState.Intialised)
+            if (this.Status != ReportItemReaderState.Intialised)
             {
                 throw new Exception($"Unable to load file from {directoryPath}");
             }
 
-            this.Status = TestreportItemReaderState.Loaded;
+            this.Status = ReportItemReaderState.Loaded;
 
             xmlDocument.Load(Directory);
         }
 
 
-        public TestReportComponentBody GetByName(string testName)
+        public ReportComponentBody GetByName(string testName)
         {
             if (string.IsNullOrEmpty(testName)) { throw new ArgumentNullException("testName"); }
 
-            var testReportItem = new TestReportComponentBody();
+            var testReportItem = new ReportComponentBody();
 
             try
             {
@@ -71,13 +70,13 @@ namespace TestReportItemReader.XML
 
                 testReportItem = (from node in xmlDocument.DocumentElement.ChildNodes.Cast<XmlNode>()
                                   where node.Name == "TestReportItem" && node.SelectSingleNode("Title").InnerText == testName
-                                  select GetTesteportItem(node)).First();
+                                  select GetRportItem(node)).First();
             }
             catch (XmlException ex)
             {
                 Debug.WriteLine(string.Format("XmlException for test name: {0}", ex.Message));
 
-                testReportItem = new TestReportComponentBody() { Title = $"Error - { testName } something went wrong trying to read this object in the test report" };
+                testReportItem = new ReportComponentBody() { Title = $"Error - { testName } something went wrong trying to read this object in the test report" };
             }
 
             return testReportItem;
@@ -88,16 +87,16 @@ namespace TestReportItemReader.XML
         /// </summary>
         /// <returns>List of TestReportItem objects</returns>
 
-        public List<TestReportComponentBody> GetAllTestreportItems()
+        public List<ReportComponentBody> GetAllTestreportItems()
         {
-            List<TestReportComponentBody> testReportItemList = new List<TestReportComponentBody>();
+            List<ReportComponentBody> testReportItemList = new List<ReportComponentBody>();
 
             try
             {
                 xmlDocument.Load(Directory);
                 foreach(XmlNode node in xmlDocument.DocumentElement.ChildNodes)
                 {
-                    var testReportItem = GetTesteportItem(node);
+                    var testReportItem = GetRportItem(node);
 
                     testReportItemList.Add(testReportItem);
                 }
@@ -112,39 +111,39 @@ namespace TestReportItemReader.XML
             }
         }
 
-        public TestReportComponentBody GetTesteportItem(XmlNode node)
+        public ReportComponentBody GetRportItem(XmlNode node)
         {
             try
             {
                 var nodeAttribute = node.Attributes["type"].Value;
 
-                var componentType = Enum.TryParse(nodeAttribute, out TestreportComponentType reportItemType) ? reportItemType : TestreportComponentType.Null;
+                var componentType = Enum.TryParse(nodeAttribute, out ReportComponentType reportItemType) ? reportItemType : ReportComponentType.Null;
 
-                if (componentType == TestreportComponentType.Body)
+                if (componentType == ReportComponentType.Body)
                 {
-                    var testReportBody = new TestReportComponentBody();
+                    var testReportBody = new ReportComponentBody();
 
                     var nodeType = node.Attributes["type"].Value;
 
-                    var reportType = Enum.TryParse(nodeType, out TestreportComponentType bodyType) ? bodyType : TestreportComponentType.Null;
+                    var reportType = Enum.TryParse(nodeType, out ReportComponentType bodyType) ? bodyType : ReportComponentType.Null;
 
                     foreach ( XmlNode childNode in node.ChildNodes)
                     {
 
-                        if (componentType == TestreportComponentType.Body) 
+                        if (componentType == ReportComponentType.Body) 
                         {
-                            return GetTesteportItem(childNode);
+                            return GetRportItem(childNode);
                         };
 
-                        ITestReportComponent reportComponent = TestReportComponentFactory.GetComponentFromXmlNode(childNode);
+                        IReportComponent reportComponent = ReportComponentFactory.GetComponentFromXmlNode(childNode);
 
-                        ITestReportComponent intailisedTestReportComponent = PopulateTestreportComponent.ParseXmlNode(childNode, ref reportComponent);
+                        IReportComponent intailisedTestReportComponent = PopulateReportComponent.ParseXmlNode(childNode, ref reportComponent);
 
                         testReportBody.ListOfComponents.Add(intailisedTestReportComponent);
                     }
                 }
 
-                return new TestReportComponentBody() { Title = $"Error - something went wrong trying to read this object in the test report" };
+                return new ReportComponentBody() { Title = $"Error - something went wrong trying to read this object in the test report" };
 
             }
             catch (XmlException ex)

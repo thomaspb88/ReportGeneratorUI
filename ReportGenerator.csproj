@@ -161,17 +161,17 @@
     <Resource Include="Content\Images\Icon_QuestionMark.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="ReportItemReader.Factory\ReportItemReader.Factory.csproj">
+      <Project>{a6d11c22-21ab-4779-96e5-9afdbf2a4ae7}</Project>
+      <Name>ReportItemReader.Factory</Name>
+    </ProjectReference>
     <ProjectReference Include="TestReport.Components\Report.Components.csproj">
       <Project>{e5f3af3b-cea8-46b8-99d2-09802dd6459b}</Project>
       <Name>Report.Components</Name>
     </ProjectReference>
-    <ProjectReference Include="TestReportDocument\Report.Document.csproj">
+    <ProjectReference Include="TestReportDocument\ReportDocument.csproj">
       <Project>{93cfebca-7684-4254-aae2-c766f7d9158b}</Project>
-      <Name>Report.Document</Name>
-    </ProjectReference>
-    <ProjectReference Include="TestReportItemRepository.Factory\ReportItemReader.Factory.csproj">
-      <Project>{de09d63b-5b43-4429-8fd3-2da4b257022f}</Project>
-      <Name>ReportItemReader.Factory</Name>
+      <Name>ReportDocument</Name>
     </ProjectReference>
     <ProjectReference Include="TestreportReader.Interface\ReportItemReader.Interface.csproj">
       <Project>{f073a4d4-b37d-4d0f-9179-cb1eea190ec7}</Project>
@@ -180,8 +180,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)RepositoriesForBin\*.*" "$(TargetDir)" /Y
-xcopy "$(SolutionDir)RepositoriesForBin\\x86\*.*" "$(TargetDir)x86" /Y
-xcopy "$(SolutionDir)RepositoriesForBin\\x64\*.*" "$(TargetDir)x64" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(SolutionDir)RepositoriesForBin\*.*" "$(TargetDir)" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

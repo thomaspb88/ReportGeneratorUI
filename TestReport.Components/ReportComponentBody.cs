@@ -15,7 +15,7 @@ namespace Report.Components
         {
             get
             {
-                if(ListOfComponents != null)
+                if(ListOfComponents.Count != 0 )
                 {
 
                     return ListOfComponents

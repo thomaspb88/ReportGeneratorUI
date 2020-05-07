@@ -4,29 +4,29 @@ using System.IO;
 using System;
 using Report.Components;
 
-namespace Report.Document
+namespace ReportDocument
 {
-    public class ReportDocument
+    public class TestReport
     {
-        public IEnumerable<ReportComponentBody> ListOfTestsReportItems { get; set; }
-        private Application wordApp;
-        private Document _wordDoc;
-        object missing = System.Reflection.Missing.Value;
-        object endOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
+        public static IEnumerable<ReportComponentBody> ListOfReportItems { get; set; }
+        private static Application wordApp;
+        private static Document _wordDoc;
+        static object missing = System.Reflection.Missing.Value;
+        static object endOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
 
         private bool IsDocumentOpen { get; set; } = false;
 
         public void OpenDocument(string docTemplateFilePath)
         {
-            if (this.IsDocumentOpen)
+            if (IsDocumentOpen)
             {
-                this._wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
+                _wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
             }
             else
             {
-                this.wordApp = new Application { Visible = true };
-                this._wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
-                this.IsDocumentOpen = true;
+                wordApp = new Application { Visible = true };
+                _wordDoc = wordApp.Documents.Open(docTemplateFilePath, ReadOnly: false, Visible: true);
+                IsDocumentOpen = true;
             }
         }
 
@@ -44,12 +44,12 @@ namespace Report.Document
 
         public void LoadReportItems(IEnumerable<ReportComponentBody> testreportItems)
         {
-            this.ListOfTestsReportItems = testreportItems;
+            ListOfReportItems = testreportItems;
         }
 
         public void WriteReport()
         {
-            foreach (var item in this.ListOfTestsReportItems)
+            foreach (var item in ListOfReportItems)
             {
                 WriteReportItemToDocument(item);            
             }
@@ -79,7 +79,7 @@ namespace Report.Document
             para.Range.Font.Bold = listSettings.Bold;
             para.set_Style(_wordDoc.Styles[listSettings.StyleName]);
 
-            testreportComponentList.Text.ForEach(item => para.Range.InsertBefore(t));
+            testreportComponentList.Text.ForEach(item => para.Range.InsertBefore(item));
         };
 
         internal static Action<IReportComponent> WriteText = (t) =>
@@ -161,7 +161,7 @@ namespace Report.Document
 
         public void ReplaceWord(string oldWord, string newWord)
         {
-            this._wordDoc.Activate();
+            _wordDoc.Activate();
             FindAndReplace(oldWord, newWord);
         }
 
@@ -173,7 +173,7 @@ namespace Report.Document
         public void SaveAs(string wordTemplateFilePath, string wordTemplateFileName)
         {
             object FileFormat = WdSaveFormat.wdFormatDocumentDefault;
-            this._wordDoc.SaveAs2(Path.Combine(wordTemplateFilePath, wordTemplateFileName), ref FileFormat);
+            _wordDoc.SaveAs2(Path.Combine(wordTemplateFilePath, wordTemplateFileName), ref FileFormat);
         }
 
         /// <summary>
@@ -185,8 +185,8 @@ namespace Report.Document
 
             if (IsDocumentOpen)
             {
-                this._wordDoc.Close(SaveChanges);
-                this.IsDocumentOpen = false;
+                _wordDoc.Close(SaveChanges);
+                IsDocumentOpen = false;
             }
         }
 

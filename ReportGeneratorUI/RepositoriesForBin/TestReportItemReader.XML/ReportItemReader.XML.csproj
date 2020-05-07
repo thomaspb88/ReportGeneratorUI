@@ -7,8 +7,8 @@
     <ProjectGuid>{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReportItemRepository.XML</RootNamespace>
-    <AssemblyName>ReportItemRepository.XML</AssemblyName>
+    <RootNamespace>ReportItemReader.XML</RootNamespace>
+    <AssemblyName>ReportItemReader.XML</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -46,24 +46,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
-      <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
-      <Name>Report.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestreportComponent.Factory\ReportComponent.Factory.csproj">
-      <Project>{51B44302-0676-4DF8-BB5F-D1A2DFB27648}</Project>
+    <ProjectReference Include="..\..\ReportComponent.Factory\ReportComponent.Factory.csproj">
+      <Project>{A74F0679-2C59-4D2F-8C7C-A352526EE022}</Project>
       <Name>ReportComponent.Factory</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestreportComponentSettings.Factory\ComponentSettings.Reader.csproj">
-      <Project>{3A8C1891-A709-46BC-858C-5A2483C7E016}</Project>
-      <Name>ComponentSettings.Reader</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
-      <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
-      <Name>Component.Settings</Name>
+    <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
+      <Project>{e5f3af3b-cea8-46b8-99d2-09802dd6459b}</Project>
+      <Name>Report.Components</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestreportReader.Interface\ReportItemReader.Interface.csproj">
-      <Project>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</Project>
+      <Project>{f073a4d4-b37d-4d0f-9179-cb1eea190ec7}</Project>
       <Name>ReportItemReader.Interface</Name>
     </ProjectReference>
   </ItemGroup>

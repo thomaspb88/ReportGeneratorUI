@@ -3,7 +3,7 @@ using Report.Components;
 using ReportItemReader.Factory;
 using ReportItemReader.Interface;
 using System.Collections.ObjectModel;
-using Report.Document;
+using ReportDocument;
 
 namespace ReportGenerator
 {
@@ -25,7 +25,7 @@ namespace ReportGenerator
             get 
             {
                 IReportItemReader repo = ReportItemReaderFactory.GetRepository();
-                if(repo.Status == ReportItemReaderState.Loaded)
+                if(repo.Status != ReportItemReaderState.Loaded)
                 {
                     repo.Load(FileDirectoryPath);
                     return new ObservableCollection<ReportComponentBody>(repo.GetAllTestreportItems());
@@ -228,7 +228,7 @@ namespace ReportGenerator
 
             if (repo.Status != ReportItemReaderState.Unknown && ChosenTests.Count != 0)
             {
-                ReportDocument testReport = new ReportDocument(); ; 
+                TestReport testReport = new TestReport(); ; 
                 testReport.LoadReportItems(ChosenTests);
 
                 testReport.ReplaceWord("<<Customer>>", Customer);
