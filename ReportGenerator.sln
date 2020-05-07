@@ -23,6 +23,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportComponent.Factory", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportItemReader.XML", "TestReportItemReader.XML\ReportItemReader.XML.csproj", "{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Source", "Data Source", "{7D2F0ED3-FDAA-4117-B312-169D8117EC8F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Desktop\TestReportItems.xml = ..\..\..\Desktop\TestReportItems.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
