@@ -161,25 +161,25 @@
     <Resource Include="Content\Images\Icon_QuestionMark.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="TestReport.Components\TestReport.Components.csproj">
+    <ProjectReference Include="TestReport.Components\Report.Components.csproj">
       <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
-      <Name>TestReport.Components</Name>
+      <Name>Report.Components</Name>
     </ProjectReference>
-    <ProjectReference Include="TestReportDocument\TestReportDocument.csproj">
+    <ProjectReference Include="TestReportDocument\ReportDocument.csproj">
       <Project>{93CFEBCA-7684-4254-AAE2-C766F7D9158B}</Project>
-      <Name>TestReportDocument</Name>
+      <Name>ReportDocument</Name>
     </ProjectReference>
-    <ProjectReference Include="TestReportItemRepository.Factory\TestReportItemReader.Factory.csproj">
+    <ProjectReference Include="TestReportItemRepository.Factory\ReportItemReader.Factory.csproj">
       <Project>{DE09D63B-5B43-4429-8FD3-2DA4B257022F}</Project>
-      <Name>TestReportItemReader.Factory</Name>
+      <Name>ReportItemReader.Factory</Name>
     </ProjectReference>
-    <ProjectReference Include="TestReportItemRepository.XML\TestReportItemReader.XML.csproj">
+    <ProjectReference Include="TestReportItemRepository.XML\ReportItemReader.XML.csproj">
       <Project>{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}</Project>
-      <Name>TestReportItemReader.XML</Name>
+      <Name>ReportItemReader.XML</Name>
     </ProjectReference>
-    <ProjectReference Include="TestreportReader.Interface\TestReportItemReader.Interface.csproj">
+    <ProjectReference Include="TestreportReader.Interface\ReportItemReader.Interface.csproj">
       <Project>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</Project>
-      <Name>TestReportItemReader.Interface</Name>
+      <Name>ReportItemReader.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

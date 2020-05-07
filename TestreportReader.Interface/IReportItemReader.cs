@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using TestReport.Components;
+using Report.Components;
 
-namespace TestReportItemReader.Interface
+namespace ReportItemReader.Interface
 {
-    public interface ITestreportItemReader
+    public interface IReportItemReader
     {
-        List<TestReportComponentBody> GetAllTestreportItems();
-        TestReportComponentBody GetByName(string testName);
+        List<ReportComponentBody> GetAllTestreportItems();
+        ReportComponentBody GetByName(string testName);
         void LoadFromDirectory(string directoryPath);
         TestreportItemReaderState Status { get; set; }
         string Directory { get; }

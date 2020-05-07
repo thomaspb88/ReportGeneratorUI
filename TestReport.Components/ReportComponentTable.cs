@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using TestreportComponent.Settings;
+using ReportComponent.Settings;
 
-namespace TestReport.Components
+namespace Report.Components
 {
-    public class TestReportComponentTable : ITestReportComponent
+    public class ReportComponentTable : IReportComponent
     {
 
-        public TestreportComponentType TypeOfComponent { get; set; } = TestreportComponentType.Table;
+        public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Table;
 
         public List<string> Titles { get; set; } = new List<string>();
 
@@ -21,6 +21,6 @@ namespace TestReport.Components
             } 
         }
 
-        public ITestReportComponentSettings Settings { get; set; }
+        public ComponentSettings Settings { get; set; } = new TextSettings();
     }
 }

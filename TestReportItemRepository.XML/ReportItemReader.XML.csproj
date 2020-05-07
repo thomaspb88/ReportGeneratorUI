@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</ProjectGuid>
+    <ProjectGuid>{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestReportItemRepository.Interface</RootNamespace>
-    <AssemblyName>TestReportItemRepository.Interface</AssemblyName>
+    <RootNamespace>ReportItemRepository.XML</RootNamespace>
+    <AssemblyName>ReportItemRepository.XML</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,17 +41,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITestReportItemReader.cs" />
+    <Compile Include="PopulateReportComponent.cs" />
+    <Compile Include="XMLReportItemReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestReport.Components\TestReport.Components.csproj">
+    <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
       <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
-      <Name>TestReport.Components</Name>
+      <Name>Report.Components</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestreportDocument.Settings\TestreportComponent.Settings.csproj">
+    <ProjectReference Include="..\TestreportComponent.Factory\ReportComponent.Factory.csproj">
+      <Project>{51B44302-0676-4DF8-BB5F-D1A2DFB27648}</Project>
+      <Name>ReportComponent.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestreportComponentSettings.Factory\ComponentSettings.Reader.csproj">
+      <Project>{3A8C1891-A709-46BC-858C-5A2483C7E016}</Project>
+      <Name>ComponentSettings.Reader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
       <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
-      <Name>TestreportComponent.Settings</Name>
+      <Name>Component.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestreportReader.Interface\ReportItemReader.Interface.csproj">
+      <Project>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</Project>
+      <Name>ReportItemReader.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
