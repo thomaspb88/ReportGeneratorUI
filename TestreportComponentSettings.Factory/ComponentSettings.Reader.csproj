@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}</ProjectGuid>
+    <ProjectGuid>{3A8C1891-A709-46BC-858C-5A2483C7E016}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestReportItemReader.Interface</RootNamespace>
-    <AssemblyName>TestReportItemReader.Interface</AssemblyName>
+    <RootNamespace>ReportComponentSettings.Factory</RootNamespace>
+    <AssemblyName>ReportComponentSettings.Factory</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,13 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITestReportItemReader.cs" />
+    <Compile Include="ComponentReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestReport.Components\TestReport.Components.csproj">
+    <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
       <Project>{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}</Project>
-      <Name>TestReport.Components</Name>
+      <Name>Report.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
+      <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
+      <Name>Component.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestReportDocument\ReportDocument.csproj">
+      <Project>{93cfebca-7684-4254-aae2-c766f7d9158b}</Project>
+      <Name>ReportDocument</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestreportDocument.Settings\TestreportComponent.Settings.csproj">
       <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>

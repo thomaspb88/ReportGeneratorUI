@@ -4,27 +4,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportGenerator", "ReportGenerator.csproj", "{4E90511B-23DF-4770-9D7E-813758720965}"
-	ProjectSection(ProjectDependencies) = postProject
-		{51B44302-0676-4DF8-BB5F-D1A2DFB27648} = {51B44302-0676-4DF8-BB5F-D1A2DFB27648}
-		{3A8C1891-A709-46BC-858C-5A2483C7E016} = {3A8C1891-A709-46BC-858C-5A2483C7E016}
-		{DB1F83E0-6544-468F-A480-70658A373AC3} = {DB1F83E0-6544-468F-A480-70658A373AC3}
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestReportDocument", "TestReportDocument\TestReportDocument.csproj", "{93CFEBCA-7684-4254-AAE2-C766F7D9158B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportItemReader.XML", "TestReportItemRepository.XML\ReportItemReader.XML.csproj", "{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestReport.Components", "TestReport.Components\TestReport.Components.csproj", "{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportDocument", "TestReportDocument\ReportDocument.csproj", "{93CFEBCA-7684-4254-AAE2-C766F7D9158B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestReportItemReader.Interface", "TestreportReader.Interface\TestReportItemReader.Interface.csproj", "{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report.Components", "TestReport.Components\Report.Components.csproj", "{E5F3AF3B-CEA8-46B8-99D2-09802DD6459B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestreportComponent.Factory", "TestreportComponent.Factory\TestreportComponent.Factory.csproj", "{51B44302-0676-4DF8-BB5F-D1A2DFB27648}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportItemReader.Interface", "TestreportReader.Interface\ReportItemReader.Interface.csproj", "{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestreportComponentSettings.Factory", "TestreportComponentSettings.Factory\TestreportComponentSettings.Factory.csproj", "{3A8C1891-A709-46BC-858C-5A2483C7E016}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportItemReader.Factory", "TestReportItemRepository.Factory\ReportItemReader.Factory.csproj", "{DE09D63B-5B43-4429-8FD3-2DA4B257022F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestreportComponent.Settings", "TestreportDocument.Settings\TestreportComponent.Settings.csproj", "{DB1F83E0-6544-468F-A480-70658A373AC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportComponent.Factory", "TestreportComponent.Factory\ReportComponent.Factory.csproj", "{51B44302-0676-4DF8-BB5F-D1A2DFB27648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestReportItemReader.Factory", "TestReportItemReader.Factory\TestReportItemReader.Factory.csproj", "{DE09D63B-5B43-4429-8FD3-2DA4B257022F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentSettings.Reader", "TestreportComponentSettings.Factory\ComponentSettings.Reader.csproj", "{3A8C1891-A709-46BC-858C-5A2483C7E016}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestReportItemReader.XML", "TestReportItemReader.XML\TestReportItemReader.XML.csproj", "{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.Settings", "TestreportDocument.Settings\Component.Settings.csproj", "{DB1F83E0-6544-468F-A480-70658A373AC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +31,10 @@ Global
 		{4E90511B-23DF-4770-9D7E-813758720965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E90511B-23DF-4770-9D7E-813758720965}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E90511B-23DF-4770-9D7E-813758720965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{93CFEBCA-7684-4254-AAE2-C766F7D9158B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93CFEBCA-7684-4254-AAE2-C766F7D9158B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93CFEBCA-7684-4254-AAE2-C766F7D9158B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,6 +47,10 @@ Global
 		{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F073A4D4-B37D-4D0F-9179-CB1EEA190EC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE09D63B-5B43-4429-8FD3-2DA4B257022F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE09D63B-5B43-4429-8FD3-2DA4B257022F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE09D63B-5B43-4429-8FD3-2DA4B257022F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE09D63B-5B43-4429-8FD3-2DA4B257022F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51B44302-0676-4DF8-BB5F-D1A2DFB27648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51B44302-0676-4DF8-BB5F-D1A2DFB27648}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51B44302-0676-4DF8-BB5F-D1A2DFB27648}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,14 +63,6 @@ Global
 		{DB1F83E0-6544-468F-A480-70658A373AC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB1F83E0-6544-468F-A480-70658A373AC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB1F83E0-6544-468F-A480-70658A373AC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE09D63B-5B43-4429-8FD3-2DA4B257022F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE09D63B-5B43-4429-8FD3-2DA4B257022F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE09D63B-5B43-4429-8FD3-2DA4B257022F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE09D63B-5B43-4429-8FD3-2DA4B257022F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

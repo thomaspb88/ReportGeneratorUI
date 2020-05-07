@@ -1,6 +1,6 @@
-﻿namespace TestReport.Components
+﻿namespace Report.Components
 {
-    public enum TestreportComponentType
+    public enum ReportComponentType
     {
         Null,
         Header,

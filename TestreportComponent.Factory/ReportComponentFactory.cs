@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Report.Components;
+using System;
 using System.Xml;
-using TestReport.Components;
 
-namespace TestreportComponent.Factory
+namespace ReportComponent.Factory
 {
-    public static class TestReportComponentFactory
+    public static class ReportComponentFactory
     {
-        public static ITestReportComponent GetComponentFromXmlNode(XmlNode node)
+        public static IReportComponent GetComponentFromXmlNode(XmlNode node)
         {
             string nameOfComponents = String.IsNullOrWhiteSpace(node.Name) ? "Null" : node.Name;
             string component = $"TestReport.Components.TestReportComponent{ nameOfComponents }, TestReportComponent{ nameOfComponents }, Version = 1.0.0.0, Culture = neutral";
             Type componentType = Type.GetType(component);
             object type = Activator.CreateInstance(componentType);
-            ITestReportComponent testreportComponent = type as ITestReportComponent;
+            IReportComponent testreportComponent = type as IReportComponent;
             return testreportComponent;
         }
     }

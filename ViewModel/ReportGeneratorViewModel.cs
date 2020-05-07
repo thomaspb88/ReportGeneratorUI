@@ -1,17 +1,16 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
+using Report.Components;
+using ReportItemReader.Factory;
+using ReportItemReader.Interface;
+using ReportItemReader.XML;
 using System.Collections.ObjectModel;
-using TestReport.Components;
-using TestReportDocument;
-using TestReportItemReader.Factory;
-using TestReportItemReader.Interface;
-using TestReportItemReader.XML;
 
 namespace ReportGenerator
 {
     public class ViewModelReportGenerator : BaseViewModel
 
     {
-        ITestreportItemReader repo = TestreportItemReaderFactory.GetRepository();
+        IReportItemReader repo = ReportItemReaderFactory.GetRepository();
 
         public RelayCommand UpdateFileDirectoryPathCommand { get; private set; }
         public RelayCommand ShowPopUpCommand { get; private set; }
@@ -21,20 +20,20 @@ namespace ReportGenerator
 
         #region Property - Test List for Combobox
 
-        public ObservableCollection<TestReportComponentBody> TestList
+        public ObservableCollection<ReportComponentBody> TestList
         {
             get 
             {
-                ITestreportItemReader repo = new XMLTestReportItemReader();
+                IReportItemReader repo = new XMLReportItemReader();
                 if(repo.Status == TestreportItemReaderState.Loaded)
                 {
                     repo.LoadFromDirectory(FileDirectoryPath);
-                    return new ObservableCollection<TestReportComponentBody>(repo.GetAllTestreportItems());
+                    return new ObservableCollection<ReportComponentBody>(repo.GetAllTestreportItems());
                 }
 
-                return new ObservableCollection<TestReportComponentBody>()
+                return new ObservableCollection<ReportComponentBody>()
                 {
-                   new TestReportComponentBody(){ Title = "Error - Something went wrong" }
+                   new ReportComponentBody(){ Title = "Error - Something went wrong" }
                 };
             }
         }
@@ -42,9 +41,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Chosen Test List
-        private ObservableCollection<TestReportComponentBody> _chosenTests;
+        private ObservableCollection<ReportComponentBody> _chosenTests;
 
-        public ObservableCollection<TestReportComponentBody> ChosenTests
+        public ObservableCollection<ReportComponentBody> ChosenTests
         {
             get 
             {
@@ -58,9 +57,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Selected Test on Combobox
-        private TestReportComponentBody _selectedTest;
+        private ReportComponentBody _selectedTest;
 
-        public TestReportComponentBody SelectedTest
+        public ReportComponentBody SelectedTest
         {
             get { return _selectedTest; }
             set 
@@ -72,9 +71,9 @@ namespace ReportGenerator
         #endregion
 
         #region Property - Selected Test on ListBox
-        private TestReportComponentBody _selectedListItem;
+        private ReportComponentBody _selectedListItem;
 
-        public TestReportComponentBody SelectedListItem
+        public ReportComponentBody SelectedListItem
         {
             get { return _selectedListItem; }
             set
@@ -176,7 +175,7 @@ namespace ReportGenerator
         #region Constructor - ReportGeneratorViewModel
         public ViewModelReportGenerator()
         {
-            _chosenTests = new ObservableCollection<TestReportComponentBody>();
+            _chosenTests = new ObservableCollection<ReportComponentBody>();
             AddTestsCommand = new RelayCommand(() => ExecuteAddTestsToListCommand(), () => CanExecuteAddTestsCommand());
             RemoveTestCommand = new RelayCommand(() => ExecuteRemoveTestsCommand(), () => CanExecuteRemoveTestsCommand());
             CreateReportCommand = new RelayCommand(() => ExecuteCreateReportCommand(), () => CanExecuteCreateReportCommand());
@@ -229,15 +228,15 @@ namespace ReportGenerator
 
             if (repo.Status != TestreportItemReaderState.Unknown && ChosenTests.Count != 0)
             {
-                var testReport = new TestReportDoc();
+                TestReport testReport = new TestReport();
                 testReport.LoadReportItems(ChosenTests);
 
                 testReport.ReplaceWord("<<Customer>>", Customer);
                 testReport.ReplaceWord("<<Address>>", Address.Replace("\n", ""));
                 testReport.ReplaceWord("<<Project>>", Project);
                 testReport.ReplaceWord("<<Title>>", ReportTitle);
-                //testReport.AppendTests();
-                //testReport.AppendReferences();
+                testReport.AppendTests();
+                testReport.AppendReferences();
             }
         }
 
