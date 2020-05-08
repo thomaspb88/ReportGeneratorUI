@@ -2,12 +2,12 @@
 	<Body type="TestStandard">
 		<Text type="Title">Test Standard 1</Text>
 		<Text type="Subtitle">Subtitle</Text>
-		<Table>
-			<Text>Title A</Text>
-			<Text>Title B</Text>
-			<Text>Title C</Text>
-			<Text>Title D</Text>
-		</Table>
+    <Table>
+      <Text>Title A</Text>
+      <Text>Title B</Text>
+      <Text>Title C</Text>
+      <Text>Title D</Text>
+    </Table>
 		<List>
 			<Text>Tested with fire</Text>
 		</List>

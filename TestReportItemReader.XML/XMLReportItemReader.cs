@@ -122,6 +122,10 @@ namespace ReportItemReader.XML
         {
             var testReportBody = new ReportComponentBody();
 
+            var reportItemType = node.GetAttributeValue("type");
+
+            testReportBody.ReportItemType = Enum.TryParse(reportItemType, out ReportItemType reportType) ? reportType : ReportItemType.Null;
+
             foreach (XmlNode childNode in node.ChildNodes)
             {
                 var reportItem = ReadXmlNode(childNode);
