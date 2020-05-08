@@ -43,7 +43,7 @@ namespace ReportItem.Common
             return new ReportComponentNull();
         };
 
-        private static Func<IReportComponent, XmlNode, IReportComponent> ParseNull = (t, x) =>
+        private static Func<IReportComponent, XmlNode, IReportComponent> ParseDefault = (t, x) =>
         {
             return new ReportComponentNull();
         };
@@ -51,20 +51,20 @@ namespace ReportItem.Common
         private static Dictionary<ReportComponentType, Func<IReportComponent, XmlNode, IReportComponent>> parsingFunctions
             = new Dictionary<ReportComponentType, Func<IReportComponent, XmlNode, IReportComponent>>()
             {
-                { ReportComponentType.Header, ParseText },
+                { ReportComponentType.Title, ParseText },
                 { ReportComponentType.List, ParseList },
                 { ReportComponentType.Text, ParseText },
                 { ReportComponentType.Reference, ParseText },
                 { ReportComponentType.Subtitle, ParseText },
                 { ReportComponentType.Table, ParseTable },
-                { ReportComponentType.Null, ParseNull }
+                { ReportComponentType.Default, ParseDefault }
             };
 
         public static IReportComponent ParseXmlNode(XmlNode node, ref IReportComponent component)
         {
-            string TypeOfComponent = node.Attributes["type"].Value;
+            string TypeOfComponent = node.Name;
 
-            component.TypeOfComponent = Enum.TryParse(TypeOfComponent, out ReportComponentType reportTypComponent) ? reportTypComponent : ReportComponentType.Null;
+            component.TypeOfComponent = Enum.TryParse(TypeOfComponent, out ReportComponentType reportTypeComponent) ? reportTypeComponent : ReportComponentType.Default;
 
             var func = parsingFunctions[component.TypeOfComponent];
 

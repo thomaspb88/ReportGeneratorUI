@@ -23,6 +23,6 @@ namespace Report.Components
             } 
         }
 
-        public ComponentSettings Settings { get; set; }
+        public ComponentSetting Settings { get; set; }
     }
 }

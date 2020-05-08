@@ -6,6 +6,6 @@ namespace Report.Components
     {
         ReportComponentType TypeOfComponent { get; set; }
 
-        ComponentSettings Settings { get; set; }
+        ComponentSetting Settings { get; set; }
     }
 }

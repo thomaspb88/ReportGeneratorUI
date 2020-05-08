@@ -49,13 +49,29 @@
       <Project>{a74f0679-2c59-4d2f-8c7c-a352526ee022}</Project>
       <Name>ReportComponent.Factory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ReportItem.Common\ReportItem.Common.csproj">
+      <Project>{cfecfd02-a65c-4970-9cd7-f06250ca24fb}</Project>
+      <Name>ReportItem.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
       <Project>{e5f3af3b-cea8-46b8-99d2-09802dd6459b}</Project>
       <Name>Report.Components</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestreportComponentSettings.Factory\ComponentSettings.Factory.csproj">
+      <Project>{3a8c1891-a709-46bc-858c-5a2483c7e016}</Project>
+      <Name>ComponentSettings.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
+      <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
+      <Name>Component.Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestreportReader.Interface\ReportItemReader.Interface.csproj">
       <Project>{f073a4d4-b37d-4d0f-9179-cb1eea190ec7}</Project>
       <Name>ReportItemReader.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XmlNodeExtensions\ExtensionMethods.csproj">
+      <Project>{394d6a86-b50a-4752-a5ba-8a3070d27c28}</Project>
+      <Name>ExtensionMethods</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

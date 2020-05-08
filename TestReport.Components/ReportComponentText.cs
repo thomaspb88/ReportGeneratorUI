@@ -7,7 +7,7 @@ namespace Report.Components
     {
         public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Text;
         public string Text { get; set; } = string.Empty;
-        public ComponentSettings Settings { get; set; }
+        public ComponentSetting Settings { get; set; }
     }
 
 }

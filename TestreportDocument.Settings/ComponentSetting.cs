@@ -1,6 +1,6 @@
 ﻿namespace Component.Settings
 {
-    public class ComponentSettings
+    public class ComponentSetting
     {
 
         public int Bold { get; set; } = 0;

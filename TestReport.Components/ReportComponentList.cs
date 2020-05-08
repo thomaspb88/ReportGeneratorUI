@@ -8,7 +8,7 @@ namespace Report.Components
     {
         public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.List;
         public List<string> Text { get; set; } = new List<string>();
-        public ComponentSettings Settings { get; set; }
+        public ComponentSetting Settings { get; set; }
     }
 
 }

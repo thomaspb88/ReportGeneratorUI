@@ -5,9 +5,9 @@ namespace Report.Components
 {
     public class ReportComponentNull : IReportComponent
     {
-        public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Null;
+        public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Default;
 
         public string Text { get; set; } = "Error - Unable to read this component";
-        public ComponentSettings Settings { get; set; }
+        public ComponentSetting Settings { get; set; }
     }
 }

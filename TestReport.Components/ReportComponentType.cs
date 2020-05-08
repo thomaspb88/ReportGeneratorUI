@@ -2,8 +2,8 @@
 {
     public enum ReportComponentType
     {
-        Null,
-        Header,
+        Default,
+        Title,
         Subtitle,
         Text,
         List,

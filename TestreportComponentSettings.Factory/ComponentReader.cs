@@ -1,32 +1,32 @@
 ﻿using Report.Components;
 using Component.Settings;
 
-namespace ReportComponentSettings.Factory
+namespace ComponentSettings.Factory
 {
     public static class ComponentReader
     {
-        public static ComponentSettings GetSetting(IReportComponent component)
+        public static ComponentSetting GetSetting(IReportComponent component)
         {
             switch (component.TypeOfComponent)
             {
-                case ReportComponentType.Null:
-                    return new ComponentSettings();
-                case ReportComponentType.Header:
-                    return new ComponentSettings() { Bold = 1, SpaceAfter = 10, StyleName = "Heading 1" };
+                case ReportComponentType.Default:
+                    return new ComponentSetting();
+                case ReportComponentType.Title:
+                    return new ComponentSetting() { Bold = 1, SpaceAfter = 10, StyleName = "Heading 1" };
                 case ReportComponentType.Subtitle:
-                    return new ComponentSettings() { Bold = 1, StyleName = "Normal", SpaceAfter = 10 };
+                    return new ComponentSetting() { Bold = 1, StyleName = "Normal", SpaceAfter = 10 };
                 case ReportComponentType.Text:
-                    return new ComponentSettings() { SpaceAfter = 10, StyleName = "Normal" };
+                    return new ComponentSetting() { SpaceAfter = 10, StyleName = "Normal" };
                 case ReportComponentType.List:
-                    return new ComponentSettings();
+                    return new ComponentSetting();
                 case ReportComponentType.Table:
-                    return new ComponentSettings() { SpaceAfter = 6, SpaceBefore = 6 };
+                    return new ComponentSetting() { SpaceAfter = 6, SpaceBefore = 6 };
                 case ReportComponentType.Reference:
-                    return new ComponentSettings();
+                    return new ComponentSetting();
                 case ReportComponentType.Body:
-                    return new ComponentSettings();
+                    return new ComponentSetting();
                 default:
-                    return new ComponentSettings();
+                    return new ComponentSetting();
             }
         }
     }

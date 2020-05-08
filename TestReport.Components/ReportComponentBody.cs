@@ -8,8 +8,8 @@ namespace Report.Components
     {
         public List<IReportComponent> ListOfComponents { get; set; } = new List<IReportComponent>();
         public ReportItemType ReportItemType { get; set; } = ReportItemType.Null;
-        public ReportComponentType TypeOfComponent { get; set; }
-        public ComponentSettings Settings { get; set; }
+        public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Body;
+        public ComponentSetting Settings { get; set; }
         public string Reference { get; set; }
         public string Title 
         {
@@ -19,14 +19,12 @@ namespace Report.Components
                 {
 
                     return ListOfComponents
-                        .Where(x => x.TypeOfComponent == ReportComponentType.Header)
+                        .Where(x => x.TypeOfComponent == ReportComponentType.Title)
                         .Cast<ReportComponentText>()
                         .Select(z => z.Text)
                         .First();
                 }
-
                 return "Error - No Title Found";
-
             }
 
             set { } 

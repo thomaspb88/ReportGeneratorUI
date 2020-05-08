@@ -7,8 +7,8 @@
     <ProjectGuid>{3A8C1891-A709-46BC-858C-5A2483C7E016}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ComponentSettings.Reader</RootNamespace>
-    <AssemblyName>ComponentSettings.Reader</AssemblyName>
+    <RootNamespace>ComponentSettings.Factory</RootNamespace>
+    <AssemblyName>ComponentSettings.Factory</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -52,10 +52,6 @@
     <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
       <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
       <Name>Component.Settings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestReportDocument\ReportDocument.csproj">
-      <Project>{93cfebca-7684-4254-aae2-c766f7d9158b}</Project>
-      <Name>ReportDocument</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestreportDocument.Settings\Component.Settings.csproj">
       <Project>{DB1F83E0-6544-468F-A480-70658A373AC3}</Project>
