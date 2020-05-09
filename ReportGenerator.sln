@@ -38,11 +38,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportGenerator.View", "Rep
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Presentation", "2-Presentation", "{D3A98B60-5313-457E-8F36-ED268095334F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportGenerator.Presentation", "..\ReportGenerator.Presentation\ReportGenerator.Presentation.csproj", "{F7F50842-9101-4A80-BA1F-D726CF9407CE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{B34F0F55-F171-4D92-8E8A-88FE75BED44C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Data Access", "3-Data Access", "{8E4DCCDE-4682-4FBB-9D8A-45EC7CDBFDFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportGenerator.Presentation", "ReportGenerator.Presentation\ReportGenerator.Presentation.csproj", "{F7F50842-9101-4A80-BA1F-D726CF9407CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
