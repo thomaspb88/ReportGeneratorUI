@@ -26,24 +26,23 @@ namespace ReportGenerator
         {
             get 
             {
+                if (repo.Status == ReportItemReaderState.Loaded)
+                {
+                    return new ObservableCollection<ReportComponentBody>(repo.GetAllReportItems());
+                }
+                else
+                {
+                    return new ObservableCollection<ReportComponentBody>()
+                    {
+                       new ReportComponentBody(){ Title = "Error - Something went wrong" }
+                    };
+                }
 
-                return testList;
-                //IReportItemReader repo = ReportItemReaderFactory.GetRepository();
-                //if(repo.Status != ReportItemReaderState.Loaded)
-                //{
-                //    repo.Load(FileDirectoryPath);
-                //    return new ObservableCollection<ReportComponentBody>(repo.GetAllTestreportItems());
-                //}
-
-                //return new ObservableCollection<ReportComponentBody>()
-                //{
-                //   new ReportComponentBody(){ Title = "Error - Something went wrong" }
-                //};
             }
 
             set
             {
-                value = testList;
+                testList = value;
             }
         }
 
@@ -56,7 +55,7 @@ namespace ReportGenerator
         {
             get 
             {
-                return _chosenTests; 
+                return _chosenTests;
             }
             set
             {
@@ -193,8 +192,6 @@ namespace ReportGenerator
 
             repo.Load(FileDirectoryPath);
 
-            TestList = new ObservableCollection<ReportComponentBody>(repo.GetAllReportItems());
-       
         }
         #endregion
 
