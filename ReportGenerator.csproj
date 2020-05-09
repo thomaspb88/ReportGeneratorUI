@@ -53,15 +53,6 @@
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
-    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
-      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
-      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
-      <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -92,22 +83,8 @@
     </ApplicationDefinition>
     <Compile Include="Converters\TestReportItemTypeToImageConverter.cs" />
     <Compile Include="ValidationRules\FilePathValidationRule.cs" />
-    <Compile Include="ViewModel\ReportGeneratorViewModel.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Page Include="Dictionary1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="View\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -138,9 +115,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
@@ -161,17 +136,17 @@
     <Resource Include="Content\Images\Icon_QuestionMark.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="ReportItemReader.Factory\ReportItemReader.Factory.csproj">
-      <Project>{a6d11c22-21ab-4779-96e5-9afdbf2a4ae7}</Project>
-      <Name>ReportItemReader.Factory</Name>
+    <ProjectReference Include="..\ReportGenerator.Presentation\ReportGenerator.Presentation.csproj">
+      <Project>{f7f50842-9101-4a80-ba1f-d726cf9407ce}</Project>
+      <Name>ReportGenerator.Presentation</Name>
     </ProjectReference>
     <ProjectReference Include="TestReport.Components\Report.Components.csproj">
       <Project>{e5f3af3b-cea8-46b8-99d2-09802dd6459b}</Project>
       <Name>Report.Components</Name>
     </ProjectReference>
-    <ProjectReference Include="TestReportDocument\ReportDocument.csproj">
-      <Project>{93cfebca-7684-4254-aae2-c766f7d9158b}</Project>
-      <Name>ReportDocument</Name>
+    <ProjectReference Include="TestReportItemReader.XML\ReportItemReader.XML.csproj">
+      <Project>{7D64A4E2-AC9F-48A2-A53F-F73592E3479F}</Project>
+      <Name>ReportItemReader.XML</Name>
     </ProjectReference>
     <ProjectReference Include="TestreportReader.Interface\ReportItemReader.Interface.csproj">
       <Project>{f073a4d4-b37d-4d0f-9179-cb1eea190ec7}</Project>

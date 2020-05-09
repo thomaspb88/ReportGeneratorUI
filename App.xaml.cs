@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ReportGenerator.Presentation;
+using ReportGenerator.View;
+using ReportItemReader.XML;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,13 @@ namespace ReportGenerator
     /// </summary>
     public partial class App : Application
     {
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            var reader = new XMLReportItemReader();
+            var viewModel = new ReportGeneratorViewModel(reader);
+            Application.Current.MainWindow = new ReportGeneratorWindow(viewModel);
+        }
     }
 }
