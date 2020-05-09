@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReportGenerator"
-        xmlns:m="clr-namespace:ReportItemReader.Interface;assembly=ReportItemReader.Interface"
         xmlns:ValRules="clr-namespace:ReportGenerator.ValidationRules"
         xmlns:p="clr-namespace:ReportGenerator.Properties"
         mc:Ignorable="d"

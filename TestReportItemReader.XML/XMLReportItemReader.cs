@@ -59,16 +59,16 @@ namespace ReportItemReader.XML
             xmlDocument.Load(Directory);
         }
 
-        public List<IReportComponent> GetAllReportItems()
+        public List<ReportComponentBody> GetAllReportItems()
         {
-            List<IReportComponent> reportItems = new List<IReportComponent>();
+            List<ReportComponentBody> reportItems = new List<ReportComponentBody>();
 
             try
             {
                 xmlDocument.Load(Directory);
                 foreach(XmlNode node in xmlDocument.DocumentElement.ChildNodes)
                 {
-                    var testReportItem = ReadXmlNode(node);
+                    var testReportItem = ParseToReportComponentBody(node);
 
                     reportItems.Add(testReportItem);
                 }
@@ -118,7 +118,7 @@ namespace ReportItemReader.XML
             return intailisedReportComponent;
         }
 
-        private IReportComponent ParseToReportComponentBody(XmlNode node)
+        private ReportComponentBody ParseToReportComponentBody(XmlNode node)
         {
             var testReportBody = new ReportComponentBody();
 

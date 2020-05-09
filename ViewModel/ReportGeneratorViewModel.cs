@@ -20,21 +20,30 @@ namespace ReportGenerator
 
         #region Property - Test List for Combobox
 
+        private ObservableCollection<ReportComponentBody> testList;
+
         public ObservableCollection<ReportComponentBody> TestList
         {
             get 
             {
-                IReportItemReader repo = ReportItemReaderFactory.GetRepository();
-                if(repo.Status != ReportItemReaderState.Loaded)
-                {
-                    repo.Load(FileDirectoryPath);
-                    return new ObservableCollection<ReportComponentBody>(repo.GetAllTestreportItems());
-                }
 
-                return new ObservableCollection<ReportComponentBody>()
-                {
-                   new ReportComponentBody(){ Title = "Error - Something went wrong" }
-                };
+                return testList;
+                //IReportItemReader repo = ReportItemReaderFactory.GetRepository();
+                //if(repo.Status != ReportItemReaderState.Loaded)
+                //{
+                //    repo.Load(FileDirectoryPath);
+                //    return new ObservableCollection<ReportComponentBody>(repo.GetAllTestreportItems());
+                //}
+
+                //return new ObservableCollection<ReportComponentBody>()
+                //{
+                //   new ReportComponentBody(){ Title = "Error - Something went wrong" }
+                //};
+            }
+
+            set
+            {
+                value = testList;
             }
         }
 
@@ -184,6 +193,7 @@ namespace ReportGenerator
 
             repo.Load(FileDirectoryPath);
 
+            TestList = new ObservableCollection<ReportComponentBody>(repo.GetAllReportItems());
        
         }
         #endregion

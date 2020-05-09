@@ -5,7 +5,7 @@ namespace ReportItemReader.Interface
 {
     public interface IReportItemReader
     {
-        List<IReportComponent> GetAllReportItems();
+        List<ReportComponentBody> GetAllReportItems();
         void Load(string directoryPath);
         ReportItemReaderState Status { get; set; }
         string Directory { get; }
