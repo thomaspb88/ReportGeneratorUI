@@ -33,7 +33,7 @@ namespace ReportDocument
         private Dictionary<ReportComponentType, Action<IReportComponent>> writeOperations
         = new Dictionary<ReportComponentType, Action<IReportComponent>>()
         { 
-            { ReportComponentType.Header, WriteText },
+            { ReportComponentType.Title, WriteText },
             { ReportComponentType.Text, WriteText },
             { ReportComponentType.Reference, WriteText },
             { ReportComponentType.Subtitle, WriteText },
