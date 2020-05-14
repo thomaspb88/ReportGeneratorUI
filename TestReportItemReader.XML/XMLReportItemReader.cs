@@ -111,9 +111,7 @@ namespace ReportItemReader.XML
 
             IReportComponent intailisedReportComponent = PopulateReportComponent.ParseXmlNode(node, ref reportComponent);
 
-            intailisedReportComponent.TypeOfComponent = GetReportComponentType(node);
-
-            intailisedReportComponent.Settings = ComponentReader.GetSetting(intailisedReportComponent);
+            intailisedReportComponent.Settings = ComponentSettingsFactory.GetSetting(intailisedReportComponent);
 
             return intailisedReportComponent;
         }
@@ -134,13 +132,5 @@ namespace ReportItemReader.XML
 
             return testReportBody;
         }
-
-        private static ReportComponentType GetReportComponentType(XmlNode node)
-        {
-            var nodeType = node.HasAttributes() ? node.GetAttributeValue("type") : node.Name;
-            var typeComp = Enum.TryParse(nodeType, out ReportComponentType reportType) ? reportType : ReportComponentType.Default;
-            return typeComp;
-        }
     }
-
 }

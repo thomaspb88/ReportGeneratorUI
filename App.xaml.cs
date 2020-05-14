@@ -23,6 +23,7 @@ namespace ReportGenerator
             var reader = new XMLReportItemReader();
             var viewModel = new ReportGeneratorViewModel(reader);
             Application.Current.MainWindow = new ReportGeneratorWindow(viewModel);
+            Application.Current.MainWindow.Show();
         }
     }
 }

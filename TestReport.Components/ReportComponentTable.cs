@@ -5,11 +5,8 @@ using Component.Settings;
 
 namespace Report.Components
 {
-    public class ReportComponentTable : IReportComponent
+    public class ReportComponentTable : ReportComponentBase
     {
-
-        public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Table;
-
         public List<string> Titles { get; set; } = new List<string>();
 
         public int ColumnCount 
@@ -23,6 +20,5 @@ namespace Report.Components
             } 
         }
 
-        public ComponentSetting Settings { get; set; }
     }
 }

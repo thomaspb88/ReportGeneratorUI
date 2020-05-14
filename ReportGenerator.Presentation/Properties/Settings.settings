@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ReportGenerator.Presentation.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="testReportItemList" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Tom\source\repos\ReportGeneratorUI\TestReportItems.xml</Value>
+    </Setting>
+    <Setting Name="RepositoryType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ReportItemReader.XML.XMLReportItemReader, ReportItemReader.XML, Version=1.0.0.0, Culture=neutral</Value>
+    </Setting>
+    <Setting Name="DataSourceFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Tom\Documents\TestReport.docx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

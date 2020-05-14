@@ -3,7 +3,7 @@ using Component.Settings;
 
 namespace ComponentSettings.Factory
 {
-    public static class ComponentReader
+    public static class ComponentSettingsFactory
     {
         public static ComponentSetting GetSetting(IReportComponent component)
         {

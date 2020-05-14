@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using Report.Components;
+using System.Linq;
+using Component.Settings;
 
 namespace ReportDocument
 {
     public class TestReport
     {
         public static IEnumerable<ReportComponentBody> ListOfReportItems { get; set; }
+
         private static Application wordApp;
         private static Document _wordDoc;
         static object missing = System.Reflection.Missing.Value;
@@ -32,9 +35,10 @@ namespace ReportDocument
 
         private Dictionary<ReportComponentType, Action<IReportComponent>> writeOperations
         = new Dictionary<ReportComponentType, Action<IReportComponent>>()
-        { 
+        {
             { ReportComponentType.Title, WriteText },
             { ReportComponentType.Text, WriteText },
+            { ReportComponentType.Default, WriteText },
             { ReportComponentType.Reference, WriteText },
             { ReportComponentType.Subtitle, WriteText },
             { ReportComponentType.Table, WriteTable },
@@ -51,18 +55,27 @@ namespace ReportDocument
         {
             foreach (var item in ListOfReportItems)
             {
-                WriteReportItemToDocument(item);            
+                WriteReportItemToDocument(item);
             }
-            //CreateReferencesPage()
+            CreateReferencesPage();
         }
 
-        internal void WriteReportItemToDocument(ReportComponentBody testreportItem)
+        internal void WriteReportItemToDocument(IReportComponent testreportItem)
         {
-            foreach (var item in testreportItem.ListOfComponents)
-            {
-                var operation = writeOperations[item.TypeOfComponent];
+            var reportBody = testreportItem as ReportComponentBody;
 
-                operation(item);
+            foreach (var item in reportBody.ListOfComponents.Where(i => i.TypeOfComponent != ReportComponentType.Reference))
+            {
+                if (item.TypeOfComponent == ReportComponentType.Body) 
+                { 
+                    WriteReportItemToDocument(item); 
+                }
+                else
+                {
+                    var operation = writeOperations[item.TypeOfComponent];
+
+                    operation(item);
+                }
             };
         }
 
@@ -129,35 +142,40 @@ namespace ReportDocument
             table.Rows[1].Range.Font.Italic = tableSettings.Italic;
         };
 
-        //public void CreateReferencesPage()
-        //{
-        //    //Move to new Page
-        //    _wordDoc.Words.Last.InsertBreak(WdBreakType.wdPageBreak);
-        //    //Title Reference
-        //    AppendHeading("References");
+        public void CreateReferencesPage()
+        {
+            //Move to new Page
+            _wordDoc.Words.Last.InsertBreak(WdBreakType.wdPageBreak);
+            //Title Reference
+            var references = ListOfReportItems.Select(x => x).Where(y => y.TypeOfComponent == Report.Components.ReportComponentType.Body).Select(z => z.Reference);
 
-        //    //List of references
-        //    object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
-        //    Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
-        //    para.Range.ListFormat.ApplyNumberDefault();
-        //    para.Range.Font.Bold = textSettings.Bold;
+            var refList = references.SelectMany(x => x);
 
-        //    //Test object reference property/s here
-        //    var listOfReferences = ListOfTestsReportItems.Where(test => test.Reference != string.Empty).Select(test => test.Reference);
-        //    var referenceArray = listOfReferences.ToList();
+            //List of references
+            object endOfDocRange = _wordDoc.Bookmarks.get_Item(ref endOfDoc).Range;
+            Paragraph para = _wordDoc.Content.Paragraphs.Add(ref endOfDocRange);
+            para.Range.ListFormat.ApplyNumberDefault();
 
-        //    for (var i = 0; i < listOfReferences.Count(); i++)
-        //    {
-        //        if(i != listOfReferences.Count()-1)
-        //        {
-        //            para.Range.InsertBefore(referenceArray[i] + "\n");
-        //        }
-        //        else
-        //        {
-        //            para.Range.InsertBefore(referenceArray[i]);
-        //        }
-        //    }
-        //}
+            var referenceSettings = new ComponentSetting();
+
+            para.Range.Font.Bold = referenceSettings.Bold;
+
+            //Test object reference property/s here
+            //var listOfReferences = ListOfTestsReportItems.Where(test => test.Reference != string.Empty).Select(test => test.Reference);
+            //var referenceArray = listOfReferences.ToList();
+
+            for (var i = 0; i < refList.Count(); i++)
+            {
+                if (i != refList.Count() - 1)
+                {
+                    para.Range.InsertBefore(refList.ToList()[i] + "\n");
+                }
+                else
+                {
+                    para.Range.InsertBefore(refList.ToList()[i]);
+                }
+            }
+        }
 
         public void ReplaceWord(string oldWord, string newWord)
         {

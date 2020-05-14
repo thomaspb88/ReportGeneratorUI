@@ -81,7 +81,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converters\TestReportItemTypeToImageConverter.cs" />
     <Compile Include="ValidationRules\FilePathValidationRule.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -136,6 +135,14 @@
     <Resource Include="Content\Images\Icon_QuestionMark.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="ReportGenerator.Presentation\ReportGenerator.Presentation.csproj">
+      <Project>{f7f50842-9101-4a80-ba1f-d726cf9407ce}</Project>
+      <Name>ReportGenerator.Presentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="ReportGenerator.View\ReportGenerator.View.csproj">
+      <Project>{a53580c7-5a70-4118-913e-b5db078459e0}</Project>
+      <Name>ReportGenerator.View</Name>
+    </ProjectReference>
     <ProjectReference Include="TestReport.Components\Report.Components.csproj">
       <Project>{e5f3af3b-cea8-46b8-99d2-09802dd6459b}</Project>
       <Name>Report.Components</Name>

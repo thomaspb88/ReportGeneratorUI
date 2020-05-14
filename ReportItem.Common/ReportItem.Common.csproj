@@ -49,6 +49,10 @@
       <Project>{e5f3af3b-cea8-46b8-99d2-09802dd6459b}</Project>
       <Name>Report.Components</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XmlNodeExtensions\ExtensionMethods.csproj">
+      <Project>{394d6a86-b50a-4752-a5ba-8a3070d27c28}</Project>
+      <Name>ExtensionMethods</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

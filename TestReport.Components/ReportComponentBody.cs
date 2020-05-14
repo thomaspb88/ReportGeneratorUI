@@ -5,13 +5,11 @@ using System;
 
 namespace Report.Components
 {
-    public class ReportComponentBody : IReportComponent
+    public class ReportComponentBody : ReportComponentBase
     {
         public List<IReportComponent> ListOfComponents { get; set; } = new List<IReportComponent>();
         public ReportItemType ReportItemType { get; set; } = ReportItemType.Null;
-        public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Body;
-        public ComponentSetting Settings { get; set; }
-        public string Reference 
+        public IEnumerable<string> Reference 
         { 
             get
             {
@@ -21,18 +19,19 @@ namespace Report.Components
                     var reference = ListOfComponents
                         .Where(x => x.TypeOfComponent == ReportComponentType.Reference)
                         .Cast<ReportComponentText>()
-                        .Select(z => z.Text)
-                        .FirstOrDefault();
+                        .Select(z => z.Text);
 
-                    if (String.IsNullOrEmpty(reference)) { return "Error - No Reference Found"; };
+                    if (reference.Count() < 1 ) { return new List<string>() { "Error - No Reference Found" }; };
 
-                    return reference;
-
+                    return reference.ToList();
                 }
-                return "Error - No Reference Found";
+                return new List<string>() { "Error - No Reference Found" };
             }
 
-            set { }
+            set 
+            { 
+
+            }
         
         }
         public string Title 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using Report.Components;
+using XmlNodeExtensionsMethods;
 
 namespace ReportItem.Common
 {
@@ -62,10 +63,6 @@ namespace ReportItem.Common
 
         public static IReportComponent ParseXmlNode(XmlNode node, ref IReportComponent component)
         {
-            string TypeOfComponent = node.Name;
-
-            component.TypeOfComponent = Enum.TryParse(TypeOfComponent, out ReportComponentType reportTypeComponent) ? reportTypeComponent : ReportComponentType.Default;
-
             var func = parsingFunctions[component.TypeOfComponent];
 
             return func(component, node);

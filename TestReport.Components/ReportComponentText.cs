@@ -3,11 +3,9 @@ using Component.Settings;
 
 namespace Report.Components
 {
-    public class ReportComponentText : IReportComponent
+    public class ReportComponentText : ReportComponentBase
     {
-        public ReportComponentType TypeOfComponent { get; set; } = ReportComponentType.Text;
         public string Text { get; set; } = string.Empty;
-        public ComponentSetting Settings { get; set; }
     }
 
 }

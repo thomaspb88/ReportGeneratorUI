@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -48,6 +51,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestReportItemTypeToImageConverter.cs" />
     <Compile Include="ReportGeneratorWindow.xaml.cs">
       <DependentUpon>ReportGeneratorWindow.xaml</DependentUpon>
     </Compile>
@@ -68,6 +72,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -80,9 +85,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ReportGenerator.csproj">
-      <Project>{4e90511b-23df-4770-9d7e-813758720965}</Project>
-      <Name>ReportGenerator</Name>
+    <ProjectReference Include="..\ReportGenerator.Presentation\ReportGenerator.Presentation.csproj">
+      <Project>{F7F50842-9101-4A80-BA1F-D726CF9407CE}</Project>
+      <Name>ReportGenerator.Presentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
+      <Project>{e5f3af3b-cea8-46b8-99d2-09802dd6459b}</Project>
+      <Name>Report.Components</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

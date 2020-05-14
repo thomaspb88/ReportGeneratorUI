@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IReportComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportComponentBase.cs" />
     <Compile Include="ReportComponentBody.cs" />
     <Compile Include="ReportComponentList.cs" />
     <Compile Include="ReportComponentNull.cs" />
