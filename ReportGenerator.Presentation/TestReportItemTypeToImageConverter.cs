@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using Report.Components;
 
-namespace ReportGenerator.View
+namespace ReportGenerator.Presentation
 {
     [ValueConversion(typeof(ReportItemType),typeof(string))]
     public class TestReportItemTypeToImageConverter : IValueConverter

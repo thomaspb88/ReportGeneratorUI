@@ -51,7 +51,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestReportItemTypeToImageConverter.cs" />
     <Compile Include="ReportGeneratorWindow.xaml.cs">
       <DependentUpon>ReportGeneratorWindow.xaml</DependentUpon>
     </Compile>
@@ -86,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReportGenerator.Presentation\ReportGenerator.Presentation.csproj">
-      <Project>{F7F50842-9101-4A80-BA1F-D726CF9407CE}</Project>
+      <Project>{f7f50842-9101-4a80-ba1f-d726cf9407ce}</Project>
       <Name>ReportGenerator.Presentation</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestReport.Components\Report.Components.csproj">
